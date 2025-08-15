@@ -1,103 +1,84 @@
-import Image from "next/image";
+"use client";
+
+import AboutSection from "@/components/about";
+import WhyChooseUsSection from "@/components/choose-us";
+import EstimateForm from "@/components/form";
+import GallerySection from "@/components/gallery";
+import ReviewSection from "@/components/review";
+import CarouselSlider from "@/components/ui/carousel";
+import { GalleryCarousel } from "@/components/ui/gallery-carousel";
+import InfiniteLinkCarousel from "@/components/ui/infinite-carousel";
+import ReviewCarousel from "@/components/ui/review-carousel";
+import { ServiceCard } from "@/components/ui/service-card";
+
+const heroSlides = [
+  {
+    id: 1,
+    title: "Exterior Painting Service",
+    subtitle: "Lasting Color. Expert Finish.",
+    description:
+      "We use premium materials designed to hold up against Florida’s harsh sun, humidity, and storms—so your home stays beautiful and protected for years to come.",
+    image: "/images/hero/1.png",
+    cta: "Get Free Quote",
+    onCtaClick: () => {
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth" });
+    },
+  },
+  {
+    id: 2,
+    title: "Interior Painting Service",
+    subtitle: "Your Home Deserves the Best",
+    description:
+      "From single rooms to whole house makeovers, we deliver flawless finishes that enhance your home's beauty and value.",
+    image: "/images/hero/2.png",
+    cta: "View Portfolio",
+    onCtaClick: () => {
+      document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+    },
+  },
+  {
+    id: 3,
+    title: "Cabinet Refinishing Service",
+    subtitle: "Revive, Don’t Replace",
+    description:
+      "Our cabinet refinishing service gives your existing cabinets a fresh, clean look—without the cost of a full remodel.",
+    image: "/images/hero/3.png",
+    cta: "Commercial Services",
+    onCtaClick: () => {
+      document
+        .getElementById("services")
+        ?.scrollIntoView({ behavior: "smooth" });
+    },
+  },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      <CarouselSlider slides={heroSlides} />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <div className="">
+        <ReviewSection />
+        <ReviewCarousel />
+      </div>
+      <div>
+        <AboutSection />
+        <InfiniteLinkCarousel />
+      </div>
+      <div
+       className="bg-slate-800 py-16"
+      >
+        <GallerySection />
+        <GalleryCarousel />
+      </div>
+      <div>
+        <WhyChooseUsSection />
+      </div>
+      <div>
+        <EstimateForm />
+      </div>
+    </>
   );
 }
