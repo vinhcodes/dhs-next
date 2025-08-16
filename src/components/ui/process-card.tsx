@@ -21,7 +21,7 @@ const ProcessCard: React.FC<ProcessCardProps> = ({ steps, className = "" }) => {
       {steps.map((step) => (
         <li 
           key={step.id} 
-          className="bg-gradient-to-r from-slate-50/90 to-transparent rounded-md p-4 space-y-2"
+          className="bg-slate-50/80 md:bg-gradient-to-r md:from-slate-50/90 md:to-transparent rounded-md p-4 space-y-2"
         >
           <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-bold leading-tight flex gap-2">
             <span className='bg-orange-400 flex justify-center w-10 h-full rounded-full text-slate-100'>{step.id}</span> {step.title}

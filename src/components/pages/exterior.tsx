@@ -202,7 +202,7 @@ const ExteriorTemplate = () => {
           <div className="max-w-6xl mx-auto">
             <TitleWithLine
               titleText="Why Choose My Exterior Painting Services in Tampa Bay?"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight text-center lg:text-left"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight lg:text-left"
             />
 
             <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-16">
@@ -245,7 +245,7 @@ const ExteriorTemplate = () => {
           <div className="max-w-6xl mx-auto">
             <TitleWithLine
               titleText="My Signature Exterior Painting Process"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight text-center"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight text-start"
             />
             <ProcessCard steps={paintingProcessData} />
           </div>

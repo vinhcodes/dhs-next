@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { FaYelp } from "react-icons/fa";
 import { LetterAvatar } from "./letter-avatar";
@@ -19,6 +19,8 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
   reviews: propReviews,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   // Default reviews if none provided
   const defaultReviews: Review[] = [
@@ -86,11 +88,15 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
     return 4; // default
   };
 
-  const [reviewsToShow, setReviewsToShow] = useState(getReviewsToShow());
+  const [reviewsToShow, setReviewsToShow] = useState(4); // Start with default for SSR
+  const [isClient, setIsClient] = useState(false);
   const totalSlides = Math.max(0, reviews.length - reviewsToShow + 1);
 
-  // Handle window resize
+  // Handle hydration and window resize
   React.useEffect(() => {
+    setIsClient(true);
+    setReviewsToShow(getReviewsToShow());
+
     const handleResize = () => {
       setReviewsToShow(getReviewsToShow());
     };
@@ -105,6 +111,34 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  // Touch handlers for swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && currentIndex < totalSlides - 1) {
+      nextSlide();
+    }
+    if (isRightSwipe && currentIndex > 0) {
+      prevSlide();
+    }
+
+    // Reset values
+    touchStartX.current = 0;
+    touchEndX.current = 0;
   };
 
   const formatDate = (dateString: string) => {
@@ -136,7 +170,12 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8">
       <div className="relative">
-        <div className="overflow-hidden">
+        <div 
+          className="overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
             className="flex transition-transform duration-300 ease-in-out"
             style={{
@@ -151,7 +190,7 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
                 className="w-full sm:w-1/2 lg:w-1/4 flex-shrink-0 px-2 md:px-3"
               >
                 <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow duration-300 h-full">
-                  {/* Header with avatar and Google icon */}
+                  {/* Header with avatar and Yelp icon */}
                   <div className="flex items-center justify-between mb-3 md:mb-4">
                     <div className="flex items-center gap-2 md:gap-3">
                       <LetterAvatar name={review.name} />
@@ -162,8 +201,7 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
                     </div>
                     {/* Yelp icon */}
                     <div>
-                      <FaYelp size={24} color="red" />{" "}
-                      {/* Adjust size and color as needed */}
+                      <FaYelp size={24} color="red" />
                     </div>
                   </div>
 
@@ -193,19 +231,13 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
                   <p className="text-gray-700 text-xs md:text-sm leading-relaxed mb-2 md:mb-3 line-clamp-6">
                     {review.text}
                   </p>
-
-                  {/* {review.text.endsWith("...") && (
-                    <button className="text-blue-600 text-xs md:text-sm font-medium hover:underline">
-                      Read more
-                    </button>
-                  )} */}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Navigation arrows - Hidden on mobile */}
+        {/* Navigation arrows - Hidden on mobile, visible on tablet/desktop */}
         <button
           onClick={prevSlide}
           className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-orange-500 hover:bg-orange-600 text-white w-10 h-10 lg:w-12 lg:h-12 rounded-full items-center justify-center shadow-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"

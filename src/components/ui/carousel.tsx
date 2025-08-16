@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface CarouselSlide {
@@ -37,6 +37,8 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
   className = ''
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   useEffect(() => {
     if (!autoPlay || !slides || slides.length <= 1) return;
@@ -60,6 +62,34 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
+  };
+
+  // Touch handlers for swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+
+    // Reset values
+    touchStartX.current = 0;
+    touchEndX.current = 0;
   };
 
   const handleCtaClick = (slide: CarouselSlide) => {
@@ -90,45 +120,13 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
     );
   }
 
-  const heroSlides = [
-  {
-    id: 1,
-    title: "Transform Your Space",
-    subtitle: "Professional Interior & Exterior Painting",
-    description: "Bring your vision to life with our expert painting services. Quality craftsmanship, premium materials, and stunning results guaranteed.",
-    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=1200&h=800&fit=crop",
-    cta: "Get Free Quote",
-    onCtaClick: () => {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  },
-  {
-    id: 2,
-    title: "Residential Excellence",
-    subtitle: "Your Home Deserves the Best",
-    description: "From single rooms to whole house makeovers, we deliver flawless finishes that enhance your home's beauty and value.",
-    image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop",
-    cta: "View Portfolio",
-    onCtaClick: () => {
-      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  },
-  {
-    id: 3,
-    title: "Commercial Solutions",
-    subtitle: "Professional Results for Business",
-    description: "Enhance your business environment with our commercial painting expertise. Minimal disruption, maximum impact.",
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&h=800&fit=crop",
-    cta: "Commercial Services",
-    onCtaClick: () => {
-      document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-];
-
-
   return (
-    <div className={`relative ${height} overflow-hidden ${className} mt-7`}>
+    <div 
+      className={`relative ${height} overflow-hidden ${className} mt-7`}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -178,19 +176,19 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
         </div>
       ))}
 
-      {/* Navigation Arrows */}
+      {/* Navigation Arrows - Hidden on mobile, visible on md and up */}
       {showArrows && slides.length > 1 && (
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all hover:scale-110"
+            className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all hover:scale-110"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all hover:scale-110"
+            className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all hover:scale-110"
             aria-label="Next slide"
           >
             <ChevronRight className="w-6 h-6" />

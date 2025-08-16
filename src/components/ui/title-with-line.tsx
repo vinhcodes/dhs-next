@@ -7,7 +7,7 @@ interface TitleWithLineProps {
 
 const TitleWithLine: React.FC<TitleWithLineProps> = ({ titleText, className = "" }) => {
   return (
-    <div className="relative text-center md:text-start text-orange-400">
+    <div className="relative text-start text-orange-400">
       <h2 className={`${className} relative inline-block pl-[3em]
                       before:content-[''] before:absolute before:block
                       before:left-0 before:top-[0.6em]

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface GalleryImage {
@@ -34,6 +34,8 @@ export const GalleryCarousel: React.FC<{ images?: GalleryImage[] }> = ({
   images: propImages,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   // Default gallery images if none provided
   const defaultImages: GalleryImage[] = [
@@ -81,11 +83,15 @@ export const GalleryCarousel: React.FC<{ images?: GalleryImage[] }> = ({
     return 3; // default
   };
 
-  const [imagesToShow, setImagesToShow] = useState(getImagesToShow());
+  const [imagesToShow, setImagesToShow] = useState(3); // Start with default for SSR
+  const [isClient, setIsClient] = useState(false);
   const totalSlides = Math.max(0, images.length - imagesToShow + 1);
 
-  // Handle window resize
+  // Handle hydration and window resize
   React.useEffect(() => {
+    setIsClient(true);
+    setImagesToShow(getImagesToShow());
+
     const handleResize = () => {
       setImagesToShow(getImagesToShow());
     };
@@ -102,10 +108,43 @@ export const GalleryCarousel: React.FC<{ images?: GalleryImage[] }> = ({
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
+  // Touch handlers for swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && currentIndex < totalSlides - 1) {
+      nextSlide();
+    }
+    if (isRightSwipe && currentIndex > 0) {
+      prevSlide();
+    }
+
+    // Reset values
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8">
       <div className="relative">
-        <div className="overflow-hidden">
+        <div 
+          className="overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{
