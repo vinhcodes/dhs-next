@@ -9,12 +9,12 @@ const navItems = [
     href: "/services",
     hasDropdown: true,
     services: [
-      { label: "Interior Painting", href: "/services/interior-painting" },
-      { label: "Exterior Painting", href: "/services/exterior-painting" },
-      { label: "Cabinet Makeover", href: "/services/cabinet-makeover" },
-      { label: "Gutters Cleaning", href: "/services/gutters-cleaning" },
-      { label: "Window Washing", href: "/services/window-washing" },
-      { label: "Pressure Washing", href: "/services/pressure-washing" }
+      { label: "Interior Painting", href: "/interior-painting" },
+      { label: "Exterior Painting", href: "/exterior-painting" },
+      { label: "Cabinet Makeover", href: "/cabinet-makeover" },
+      { label: "Gutters Cleaning", href: "/gutters-cleaning" },
+      { label: "Window Washing", href: "/window-washing" },
+      { label: "Pressure Washing", href: "/pressure-washing" }
     ]
   },
   { label: "Contact", href: "/contact" }

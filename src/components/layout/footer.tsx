@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
 
             {/* Instagram */}
             <a 
-              href="https://instagram.com/dhsservices" 
+              href="https://instagram.com/diverse_home_solution_llc" 
               target="_blank" 
               rel="noopener noreferrer"
               className="group bg-gray-800 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 p-3 rounded-full transition-all duration-300"

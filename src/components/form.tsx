@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import { Send, User, Mail, Phone, Paintbrush, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';

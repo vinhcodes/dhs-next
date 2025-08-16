@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { PhoneIcon, Menu, ChevronDown } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { PhoneIcon, Menu, ChevronDown } from "lucide-react";
+import { Button } from "./button";
 import {
   Sheet,
   SheetContent,
@@ -9,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
+} from "@/components/ui/sheet";
 
 interface ServiceItem {
   label: string;
@@ -36,7 +37,7 @@ interface NavigationProps {
     number: string;
     display?: boolean;
   };
-  variant?: 'fixed' | 'static' | 'transparent';
+  variant?: "fixed" | "static" | "transparent";
   background?: string;
   textColor?: string;
   hoverColor?: string;
@@ -49,13 +50,13 @@ export const Navigation: React.FC<NavigationProps> = ({
   logo = { text: "DHS Services", href: "/" },
   navItems = [],
   phone,
-  variant = 'fixed',
-  background = 'bg-white/95',
-  textColor = 'text-gray-700',
-  hoverColor = 'hover:text-orange-500',
-  className = '',
+  variant = "fixed",
+  background = "bg-white/95",
+  textColor = "text-gray-700",
+  hoverColor = "hover:text-orange-500",
+  className = "",
   showPhoneOnMobile = true,
-  customButton
+  customButton,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
@@ -63,22 +64,22 @@ export const Navigation: React.FC<NavigationProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const getVariantClasses = () => {
     switch (variant) {
-      case 'static':
-        return 'relative';
-      case 'transparent':
-        return 'fixed top-0 w-full bg-transparent';
+      case "static":
+        return "relative";
+      case "transparent":
+        return "fixed top-0 w-full bg-transparent";
       default:
-        return 'fixed top-0 w-full backdrop-blur-sm shadow-sm';
+        return "fixed top-0 w-full backdrop-blur-sm shadow-sm";
     }
   };
 
   const handleNavClick = (item: NavigationItem) => {
     if (item.onClick) {
       item.onClick();
-    } else if (item.href.startsWith('#')) {
+    } else if (item.href.startsWith("#")) {
       const element = document.querySelector(item.href);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
       window.location.href = item.href;
@@ -96,10 +97,10 @@ export const Navigation: React.FC<NavigationProps> = ({
     if (logo?.onClick) {
       logo.onClick();
     } else if (logo?.href) {
-      if (logo.href.startsWith('#')) {
+      if (logo.href.startsWith("#")) {
         const element = document.querySelector(logo.href);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
         window.location.href = logo.href;
@@ -118,13 +119,16 @@ export const Navigation: React.FC<NavigationProps> = ({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setActiveDropdown(null);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -149,14 +153,16 @@ export const Navigation: React.FC<NavigationProps> = ({
                         className={`${textColor} ${hoverColor} transition-colors cursor-pointer uppercase font-medium  flex items-center gap-1`}
                       >
                         {item.label}
-                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
-                          activeDropdown === index ? 'rotate-180' : ''
-                        }`} />
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            activeDropdown === index ? "rotate-180" : ""
+                          }`}
+                        />
                       </button>
-                      
+
                       {/* Desktop Dropdown */}
                       {activeDropdown === index && (
-                        <div 
+                        <div
                           className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
                           onMouseLeave={() => setActiveDropdown(null)}
                         >
@@ -186,13 +192,15 @@ export const Navigation: React.FC<NavigationProps> = ({
                   )}
                 </div>
               ))}
-              
-              {/* Company Logo/Name in Center */}
-              <div onClick={handleLogoClick}>
-                <span className="flex gap-2 text-md font-bold text-white hover:bg-orange-500 bg-orange-400 py-2 px-4 rounded-lg cursor-pointer">
-                  <PhoneIcon className="my-auto" size={20} /> {logo?.text || "DHS Services"}
-                </span>
-              </div>
+
+              {/* Phone CTA */}
+              <Button
+                onClick={handleLogoClick}
+                className="bg-orange-500 hover:bg-orange-600 font-bold"
+              >
+                <PhoneIcon className="my-auto" size={20} />{" "}
+                {logo?.text || "DHS Services"}
+              </Button>
             </div>
 
             {/* Desktop Right Side */}
@@ -212,21 +220,21 @@ export const Navigation: React.FC<NavigationProps> = ({
             <div className="md:hidden">
               <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                 <SheetTrigger asChild>
-                  <button
-                    className="p-2"
-                    aria-label="Toggle menu"
-                  >
+                  <button className="p-2" aria-label="Toggle menu">
                     <Menu className="w-6 h-6 text-gray-600" />
                   </button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-80 p-0">
                   <SheetHeader className="p-6 bg-orange-400 text-white">
-                    <SheetTitle className="text-white text-left">Diverse Home Solution</SheetTitle>
+                    <SheetTitle className="text-white text-left">
+                      Diverse Home Solution
+                    </SheetTitle>
                     <SheetDescription className="text-orange-100 text-left">
-                    Tampa Bay's Experts for Interior and Exterior House Painting
+                      Tampa Bay's Experts for Interior and Exterior House
+                      Painting
                     </SheetDescription>
                   </SheetHeader>
-                  
+
                   {/* Mobile Menu Content */}
                   <div className="p-6 space-y-4">
                     {navItems.map((item, index) => (
@@ -267,24 +275,28 @@ export const Navigation: React.FC<NavigationProps> = ({
                     <div className="pt-4 border-t border-gray-200">
                       <div onClick={handleLogoClick}>
                         <span className="flex gap-2 text-md font-bold text-white hover:bg-orange-500 bg-orange-400 py-3 px-4 rounded-lg cursor-pointer w-fit">
-                          <PhoneIcon className="my-auto" size={20} /> {logo?.text || "DHS Services"}
+                          <PhoneIcon className="my-auto" size={20} />{" "}
+                          {logo?.text || "DHS Services"}
                         </span>
                       </div>
                     </div>
 
                     {/* Mobile Phone & Custom Button */}
-                    {(phone?.display && phone.number && showPhoneOnMobile) || customButton ? (
+                    {(phone?.display && phone.number && showPhoneOnMobile) ||
+                    customButton ? (
                       <div className="pt-4 border-t border-gray-200 space-y-4">
-                        {phone?.display && phone.number && showPhoneOnMobile && (
-                          <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                            <PhoneIcon className="w-5 h-5 text-blue-600" />
-                            <span className="text-gray-900 font-medium">{phone.number}</span>
-                          </div>
-                        )}
+                        {phone?.display &&
+                          phone.number &&
+                          showPhoneOnMobile && (
+                            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                              <PhoneIcon className="w-5 h-5 text-blue-600" />
+                              <span className="text-gray-900 font-medium">
+                                {phone.number}
+                              </span>
+                            </div>
+                          )}
                         {customButton && (
-                          <div className="w-full">
-                            {customButton}
-                          </div>
+                          <div className="w-full">{customButton}</div>
                         )}
                       </div>
                     ) : null}
@@ -299,6 +311,4 @@ export const Navigation: React.FC<NavigationProps> = ({
   );
 };
 
-
 export default Navigation;
-

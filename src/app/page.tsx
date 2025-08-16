@@ -9,7 +9,6 @@ import CarouselSlider from "@/components/ui/carousel";
 import { GalleryCarousel } from "@/components/ui/gallery-carousel";
 import InfiniteLinkCarousel from "@/components/ui/infinite-carousel";
 import ReviewCarousel from "@/components/ui/review-carousel";
-import { ServiceCard } from "@/components/ui/service-card";
 
 const heroSlides = [
   {

@@ -31,7 +31,7 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
   autoPlayInterval = 5000,
   showArrows = true,
   showIndicators = true,
-  height = 'h-screen',
+  height = 'h-[90vh]',
   overlayOpacity = 0.4,
   textAlign = 'center',
   className = ''
@@ -128,7 +128,7 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
 
 
   return (
-    <div className={`relative ${height} overflow-hidden ${className}`}>
+    <div className={`relative ${height} overflow-hidden ${className} mt-7`}>
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -155,7 +155,7 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
                   {slide.title}
                 </h1>
                 {slide.subtitle && (
-                  <h2 className="text-xl md:text-2xl mb-6 text-orange-400">
+                  <h2 className="text-xl md:text-2xl font-medium italic mb-6 text-orange-500 ">
                     {slide.subtitle}
                   </h2>
                 )}
