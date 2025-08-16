@@ -22,7 +22,7 @@ export default function InfiniteLinkCarousel() {
   }, [])
 
   return (
-    <div className="overflow-hidden w-full py-8 bg-orange-500">
+    <div className="overflow-hidden w-full py-6 bg-blue-600">
       <motion.div
         className="flex gap-8 whitespace-nowrap my-auto"
         ref={containerRef}
@@ -34,12 +34,11 @@ export default function InfiniteLinkCarousel() {
         }}
       >
         {[...links, ...links].map((link, idx) => (
-
           <span
             key={idx}
-            className="flex gap-2 text-2xl uppercase font-bold text-white "
+            className="flex gap-3 text-xl font-semibold text-white uppercase tracking-wide"
           >
-            <CheckIcon className='my-auto text-orange-300'/>
+            <CheckIcon className='w-5 h-5 my-auto text-blue-200'/>
             {link.label}
           </span>
         ))}

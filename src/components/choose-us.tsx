@@ -15,13 +15,13 @@ const WhyChooseUsSection: React.FC = () => {
       id: 1,
       icon: <Users className="w-6 h-6 text-white" />,
       title: "Family-Owned And Locally Trusted",
-      description: "Family-owned in Tampa, FL — no third parties, just honest work and personal care. We treat your home like it’s our own, with the transparency and respect you’d expect from family."
+      description: "Family-owned in Tampa, FL — no third parties, just honest work and personal care. We treat your home like it's our own, with the transparency and respect you'd expect from family."
     },
     {
       id: 2,
       icon: <Award className="w-6 h-6 text-white" />,
       title: "Hustle-Free Workmanship Warranty",
-      description: "We don’t cut corners, rush jobs, or leave you with callbacks. We do it right the first time — with pride, precision, and care you can count on."
+      description: "We don't cut corners, rush jobs, or leave you with callbacks. We do it right the first time — with pride, precision, and care you can count on."
     },
     {
       id: 3,
@@ -33,34 +33,35 @@ const WhyChooseUsSection: React.FC = () => {
       id: 4,
       icon: <Shield className="w-6 h-6 text-white" />,
       title: "10+ Years of Trusted Experience",
-      description: "Over a decade of hands-on work in Florida’s unique climate, I’ve honed the skills and knowledge to deliver lasting results."
+      description: "Over a decade of hands-on work in Florida's unique climate, I've honed the skills and knowledge to deliver lasting results."
     }
   ];
 
   return (
-    <section className="w-full py-12 md:py-20 bg-gradient-to-br from-orange-50 to-orange-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full py-16 lg:py-24 bg-gray-50">
+      <div className="max-w-6xl mx-auto px-6">
         
         {/* Header Section */}
-        <div className="text-center mb-12 md:mb-16">
-          <div className="text-orange-600 font-semibold text-xs md:text-sm tracking-wider uppercase mb-3 md:mb-4">
-            THE PEACH PAINTING DIFFERENCE
+        <div className="text-center mb-16">
+          <div className="text-blue-600 font-semibold text-sm tracking-wider uppercase mb-4">
+            Diverse Home Solution
           </div>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
-            WHY TAMPA FL HOMEOWNERS CHOOSE US
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+            Why Tampa FL Homeowners Choose Us
           </h2>
-          <p className="text-gray-700 text-sm md:text-lg max-w-4xl mx-auto leading-relaxed px-2">
+          <div className="w-16 h-1 bg-blue-600 mx-auto mb-6"></div>
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
             We combine local expertise, premium craftsmanship, and customer-first service to deliver a painting experience Tampa FL 
-            homeowners can trust—backed by the top house painters in Tampa FL
+            homeowners can trust — backed by the top house painters in Tampa FL
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           
           {/* Left Side - Image */}
           <div className="order-2 lg:order-1">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-lg">
               <img
                 src="/images/choose/1.png"
                 alt="Diverse Home Solution Painter painting a frame"
@@ -71,21 +72,21 @@ const WhyChooseUsSection: React.FC = () => {
 
           {/* Right Side - Features Grid */}
           <div className="order-1 lg:order-2">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 gap-6 mb-8">
               {features.map((feature) => (
-                <div key={feature.id} className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                <div key={feature.id} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 group">
                   {/* Icon */}
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-700 transition-colors">
                     {feature.icon}
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 leading-tight">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-tight">
                     {feature.title}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -95,15 +96,15 @@ const WhyChooseUsSection: React.FC = () => {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Get Quote Button */}
-              <button className="group bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex-1 sm:flex-none">
-                <span className="text-lg">Get a Free Quote</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              <button className="group bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg flex-1 sm:flex-none">
+                <span>Get a Free Quote</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </button>
 
               {/* Phone Button */}
-              <Link  href='tel:7272564467' className="group bg-white hover:bg-gray-50 text-gray-800 font-semibold px-8 py-4 rounded-full border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg flex-1 sm:flex-none">
-                <Phone className="w-5 h-5 text-gray-600" />
-                <span className="text-lg">813-966-3909</span>
+              <Link href='tel:7272564467' className="group bg-white hover:bg-gray-50 text-gray-800 font-medium px-8 py-3 rounded-xl border border-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg flex-1 sm:flex-none">
+                <Phone className="w-4 h-4 text-gray-600" />
+                <span>(727) 256-4467</span>
               </Link>
             </div>
           </div>

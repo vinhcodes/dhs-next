@@ -2,7 +2,6 @@
 import ReviewSection from "@/components/review";
 import { Button } from "@/components/ui/button";
 import InfiniteLinkCarousel from "@/components/ui/infinite-carousel";
-import TitleWithLine from "@/components/ui/title-with-line";
 import PhoneCallButton from "@/components/ui/phonecall-btn";
 import ReviewCarousel from "@/components/ui/review-carousel";
 import { ProcessStep } from "@/components/ui/process-card";
@@ -13,15 +12,15 @@ import FAQ from "@/components/faq";
 import CarouselSlider from "@/components/ui/carousel";
 
 const heroSlides = [
-    {
-        id: 1,
-        title: "Exterior Painting Service",
-        subtitle: "Lasting Color. Expert Finish.",
-        description:
-          "We use premium materials designed to hold up against Florida’s harsh sun, humidity, and storms—so your home stays beautiful and protected for years to come.",
-        image: "/images/hero/1.png",
-    },
-  ];
+  {
+    id: 1,
+    title: "Exterior Painting Service",
+    subtitle: "Lasting Color. Expert Finish.",
+    description:
+      "We use premium materials designed to hold up against Florida's harsh sun, humidity, and storms—so your home stays beautiful and protected for years to come.",
+    image: "/images/hero/1.png",
+  },
+];
 
 const ExteriorTemplate = () => {
   const benefits = [
@@ -42,6 +41,7 @@ const ExteriorTemplate = () => {
         "Complete exterior surface inspection and weather damage assessment",
         "Professional pressure washing and mildew treatment",
         "Advanced primer systems for Florida's UV and salt air exposure",
+        "Comprehensive caulking and weatherproofing of all joints",
       ],
     },
     {
@@ -53,6 +53,7 @@ const ExteriorTemplate = () => {
         "Premium painter's tape and surface protection systems",
         "Multiple thin coats designed for maximum weather adhesion",
         "Commercial-grade spraying equipment for large surfaces",
+        "Hurricane-resistant paint systems for long-term protection",
       ],
     },
     {
@@ -74,7 +75,7 @@ const ExteriorTemplate = () => {
       id: "exterior-cost-tampa",
       question: "HOW MUCH DOES EXTERIOR PAINTING COST IN TAMPA BAY?",
       answer: (
-        <div className="space-y-4">
+        <div className="space-y-4 text-gray-600">
           <p>
             Exterior painting costs in Tampa Bay typically range from $4-8 per
             square foot, depending on factors like home size, surface condition,
@@ -86,7 +87,7 @@ const ExteriorTemplate = () => {
             extensive prep work, and hurricane-season guarantees. Call{" "}
             <a
               href="tel:7272564467"
-              className="text-orange-600 font-semibold hover:text-orange-700"
+              className="text-blue-600 font-medium hover:text-blue-700 transition-colors"
             >
               (727) 256-4467
             </a>{" "}
@@ -117,18 +118,39 @@ const ExteriorTemplate = () => {
       id: "exterior-prep",
       question: "WHAT PREPARATION IS INCLUDED FOR EXTERIOR PAINTING?",
       answer: (
-        <div className="space-y-3">
+        <div className="space-y-3 text-gray-600">
           <p>Our comprehensive exterior preparation includes:</p>
-          <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>Complete pressure washing and surface cleaning</li>
-            <li>Inspection and repair of weather damage, wood rot, and cracks</li>
-            <li>Mildew treatment and prevention application</li>
-            <li>Professional caulking of all gaps and joints</li>
-            <li>Primer application for maximum paint adhesion</li>
-            <li>Landscape and property protection</li>
-            <li>Window and fixture masking</li>
+          <ul className="grid grid-cols-1 gap-2 text-sm">
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Complete pressure washing and surface cleaning
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Inspection and repair of weather damage, wood rot, and cracks
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Mildew treatment and prevention application
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Professional caulking of all gaps and joints
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Primer application for maximum paint adhesion
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Landscape and property protection
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Window and fixture masking
+            </li>
           </ul>
-          <p>Proper preparation is critical for Florida's demanding climate!</p>
+          <p className="text-sm font-medium mt-4">Proper preparation is critical for Florida's demanding climate!</p>
         </div>
       ),
     },
@@ -141,127 +163,116 @@ const ExteriorTemplate = () => {
   ];
 
   return (
-    <div className="overflow-x-hidden">
-        <CarouselSlider slides={heroSlides} />
-      {/* Hero Section */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 text-center space-y-6 sm:space-y-8">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-wide sm:tracking-wider uppercase text-zinc-700">
-          Professional Exterior Painting Services Tampa Bay
-        </h1>
-
-        <h2 className="max-w-5xl mx-auto text-lg sm:text-xl md:text-2xl font-bold text-orange-500/80 tracking-wide sm:tracking-wider px-2 sm:px-0">
-          Expert Exterior Painting Contractor Serving Tampa, St. Petersburg,
-          Clearwater & Pinellas Park
-        </h2>
-
-        <div className="pt-4 sm:pt-6">
-          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed w-full mx-auto px-2 sm:px-0 font-light">
-            Looking for a skilled exterior painting contractor in Tampa Bay? I'm
-            a licensed professional painter with over 10 years of experience
-            protecting homes throughout Tampa, St. Petersburg, Clearwater, and
-            Pinellas Park. My journey began in commercial painting, where I
-            mastered working with challenging weather conditions and large-scale
-            exterior projects - from office complexes to industrial facilities.
-            My commercial background taught me to handle Florida's most
-            demanding weather challenges, work with hurricane-resistant
-            coatings, and deliver results that withstand our intense UV rays and
-            coastal conditions. Today, I bring that same professional-grade
-            expertise to protect and beautify your home's exterior.
+    <div className="min-h-screen bg-white">
+      {/* Hero Carousel */}
+      <CarouselSlider slides={heroSlides} />
+      
+      {/* Hero Content Section */}
+      <section className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
+        <div className="text-center space-y-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight uppercase">
+            Professional Exterior Painting Services
+            <span className="text-blue-600 block mt-2">Tampa Bay</span>
+          </h1>
+          
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Expert Exterior Painting Contractor Serving Tampa, St. Petersburg, Clearwater & Pinellas Park
           </p>
-        </div>
-        
-        <div className="flex flex-col md:flex-row justify-center align-middle gap-4 pt-6 sm:pt-8">
-          <Button
-            size={"lg"}
-            variant={"outline"}
-            className="font-bold border-orange-500 border-2 text-orange-500 hover:text-orange-50 hover:bg-orange-500 pointer"
-          >
-            Get Free Estimate
-          </Button>
-          <PhoneCallButton />
+          
+          <div className="pt-8">
+            <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto">
+              Looking for a skilled exterior painting contractor in Tampa Bay? I'm a licensed professional painter with over 10 years of experience protecting homes throughout Tampa, St. Petersburg, Clearwater, and Pinellas Park. My journey began in commercial painting, where I mastered working with challenging weather conditions and large-scale exterior projects. Today, I bring that same professional-grade expertise to protect and beautify your home's exterior.
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
+            <Button 
+              size="xl"
+              variant="outline"
+              className="border border-blue-500 text-blue-500 px-8 py-3 rounded-full font-medium transition-colors duration-200"
+            >
+              Get Free Estimate
+            </Button>
+            <PhoneCallButton className="rounded-full" />
+          </div>
         </div>
       </section>
 
-      {/* Carousel Section */}
-      <section className="">
+      {/* Infinite Carousel */}
+      <section className="bg-gray-50">
         <InfiniteLinkCarousel />
       </section>
 
       {/* Reviews Section */}
-      <section className="bg-white py-12 sm:py-16 lg:py-20">
+      <section className="bg-white py-16 lg:py-24">
         <ReviewSection />
-        <div className="mt-12 sm:mt-16">
+        <div className="mt-16">
           <ReviewCarousel />
         </div>
       </section>
 
-      {/* Main Content - Dark Background */}
-      <div className="bg-gray-900 text-white">
-        {/* Why Choose Us Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto">
-            <TitleWithLine
-              titleText="Why Choose My Exterior Painting Services in Tampa Bay?"
-              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight lg:text-left"
-            />
+      {/* Why Choose Us Section */}
+      <section className="bg-gray-50 py-16 lg:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose My Exterior Painting Services?
+            </h2>
+            <div className="w-16 h-1 bg-blue-600 mx-auto"></div>
+          </div>
 
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-16">
-              {/* Image Section */}
-              <div className="w-full lg:w-1/2 flex-shrink-0">
-                <div className="relative overflow-hidden rounded-lg shadow-2xl">
-                  <img
-                    src="/images/exterior/1.png"
-                    alt="Professional exterior painting in Tampa Bay"
-                    className="w-full h-64 sm:h-80 lg:h-96 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-900/20 to-transparent"></div>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="w-full lg:w-1/2">
-                <div className="space-y-4 sm:space-y-5 lg:space-y-6">
-                  {benefits.map((benefit, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 sm:gap-4"
-                    >
-                      <span className="text-green-400 text-lg sm:text-xl md:text-2xl font-bold mt-0.5 flex-shrink-0">
-                        ✓
-                      </span>
-                      <p className="text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-relaxed">
-                        {benefit}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Image */}
+            <div className="order-2 lg:order-1">
+              <div className="relative overflow-hidden rounded-2xl shadow-lg">
+                <img
+                  src="/images/exterior/1.png"
+                  alt="Professional exterior painting in Tampa Bay"
+                  className="w-full h-64 sm:h-80 lg:h-96 object-cover"
+                />
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Exterior Painting Process Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto">
-            <TitleWithLine
-              titleText="My Signature Exterior Painting Process"
-              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight text-start"
-            />
-            <ProcessCard steps={paintingProcessData} />
+            {/* Benefits List */}
+            <div className="order-1 lg:order-2 space-y-6">
+              {benefits.map((benefit, index) => (
+                <div key={index} className="flex items-start gap-4 group">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-green-200 transition-colors">
+                    <span className="text-green-600 text-sm font-bold">✓</span>
+                  </div>
+                  <p className="text-gray-700 font-medium leading-relaxed">
+                    {benefit}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* FAQ Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto">
-            <FAQ 
-              questions={faqData}
-              title="Frequently Asked Exterior Painting Questions"
-              subtitle="Have questions before booking your next project? Here's what Tampa Bay homeowners ask us most about exterior painting."
-            />
+      {/* Process Section */}
+      <section className="bg-white py-16 lg:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              My Signature Exterior Painting Process
+            </h2>
+            <div className="w-16 h-1 bg-blue-600 mx-auto"></div>
           </div>
-        </section>
-      </div>
+          <ProcessCard steps={paintingProcessData} />
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-gray-50 py-16 lg:py-24">
+        <div className="max-w-4xl mx-auto px-6">
+          <FAQ 
+            questions={faqData}
+            title="Frequently Asked Exterior Painting Questions"
+            subtitle="Have questions before booking your next project? Here's what Tampa Bay homeowners ask us most about exterior painting."
+          />
+        </div>
+      </section>
     </div>
   );
 };

@@ -31,14 +31,19 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
   autoPlayInterval = 5000,
   showArrows = true,
   showIndicators = true,
-  height = 'h-[90vh]',
+  height = 'h-[85vh]',
   overlayOpacity = 0.4,
   textAlign = 'center',
   className = ''
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
     if (!autoPlay || !slides || slides.length <= 1) return;
@@ -114,7 +119,7 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
 
   if (!slides || slides.length === 0) {
     return (
-      <div className={`${height} bg-gray-200 flex items-center justify-center ${className}`}>
+      <div className={`${height} bg-gray-100 flex items-center justify-center ${className}`}>
         <p className="text-gray-500 text-lg">No slides to display</p>
       </div>
     );
@@ -122,7 +127,7 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
 
   return (
     <div 
-      className={`relative ${height} overflow-hidden ${className} mt-7`}
+      className={`relative ${height} overflow-hidden ${className}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -131,41 +136,38 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-transform duration-700 ease-in-out ${
-            index === currentSlide ? 'translate-x-0' : 
-            index < currentSlide ? '-translate-x-full' : 'translate-x-full'
+          className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+            index === currentSlide ? 'translate-x-0 opacity-100' : 
+            index < currentSlide ? '-translate-x-full opacity-0' : 'translate-x-full opacity-0'
           }`}
         >
           <div 
-            className="w-full h-full bg-cover bg-center bg-gray-900"
+            className="w-full h-full bg-cover bg-center bg-gray-900 relative"
             style={{ backgroundImage: `url(${slide.image})` }}
           >
-            {/* Overlay */}
-            <div 
-              className="absolute inset-0 bg-black"
-              style={{ opacity: overlayOpacity }}
-            ></div>
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/20"></div>
             
             {/* Content */}
-            <div className="relative z-10 h-full flex items-center justify-center px-4">
-              <div className={`text-white max-w-4xl ${getTextAlignClass()}`}>
-                <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-pulse">
+            <div className="relative z-10 h-full flex items-center justify-center px-6">
+              <div className={`text-white max-w-4xl ${getTextAlignClass()} ${isLoaded ? 'animate-fade-in' : ''}`}>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 leading-tight">
                   {slide.title}
                 </h1>
                 {slide.subtitle && (
-                  <h2 className="text-xl md:text-2xl font-medium italic mb-6 text-orange-500 ">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-medium mb-6 text-blue-200">
                     {slide.subtitle}
                   </h2>
                 )}
                 {slide.description && (
-                  <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+                  <p className="text-base sm:text-lg lg:text-xl mb-8 max-w-2xl mx-auto leading-relaxed text-gray-100">
                     {slide.description}
                   </p>
                 )}
                 {slide.cta && (
                   <button 
                     onClick={() => handleCtaClick(slide)}
-                    className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
+                    className="inline-flex items-center px-6 py-3 lg:px-8 lg:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium text-base lg:text-lg transition-all duration-200 hover:scale-105 hover:shadow-lg active:scale-95"
                   >
                     {slide.cta}
                   </button>
@@ -176,35 +178,37 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
         </div>
       ))}
 
-      {/* Navigation Arrows - Hidden on mobile, visible on md and up */}
+      {/* Navigation Arrows */}
       {showArrows && slides.length > 1 && (
         <>
           <button
             onClick={prevSlide}
-            className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all hover:scale-110"
+            className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white rounded-full items-center justify-center transition-all duration-200 hover:scale-110"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={nextSlide}
-            className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all hover:scale-110"
+            className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white rounded-full items-center justify-center transition-all duration-200 hover:scale-110"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </>
       )}
 
       {/* Slide Indicators */}
       {showIndicators && slides.length > 1 && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-3">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                index === currentSlide ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentSlide 
+                  ? 'bg-white w-8' 
+                  : 'bg-white/50 hover:bg-white/75 w-2'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -212,12 +216,29 @@ const CarouselSlider: React.FC<CarouselSliderProps> = ({
         </div>
       )}
 
-      {/* Slide Counter (Optional) */}
+      {/* Slide Counter */}
       {slides.length > 1 && (
-        <div className="absolute top-4 right-4 z-20 bg-black/30 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">
+        <div className="absolute top-6 right-6 z-20 bg-white/10 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm font-medium">
           {currentSlide + 1} / {slides.length}
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out;
+        }
+      `}</style>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const heroSlides = [
     title: "Exterior Painting Service",
     subtitle: "Lasting Color. Expert Finish.",
     description:
-      "We use premium materials designed to hold up against Florida’s harsh sun, humidity, and storms—so your home stays beautiful and protected for years to come.",
+      "We use premium materials designed to hold up against Florida's harsh sun, humidity, and storms—so your home stays beautiful and protected for years to come.",
     image: "/images/hero/1.png",
     cta: "Get Free Quote",
     onCtaClick: () => {
@@ -40,11 +40,11 @@ const heroSlides = [
   {
     id: 3,
     title: "Cabinet Refinishing Service",
-    subtitle: "Revive, Don’t Replace",
+    subtitle: "Revive, Don't Replace",
     description:
       "Our cabinet refinishing service gives your existing cabinets a fresh, clean look—without the cost of a full remodel.",
     image: "/images/hero/3.png",
-    cta: "Commercial Services",
+    cta: "Learn More",
     onCtaClick: () => {
       document
         .getElementById("services")
@@ -55,29 +55,40 @@ const heroSlides = [
 
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen bg-white">
+      {/* Hero Carousel */}
       <CarouselSlider slides={heroSlides} />
 
-      <div className="">
+      {/* Reviews Section */}
+      <section className="bg-white py-16 lg:py-24">
         <ReviewSection />
-        <ReviewCarousel />
-      </div>
-      <div>
+        <div className="mt-16">
+          <ReviewCarousel />
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="bg-gray-50 pt-16 lg:pt-24">
         <AboutSection />
+      </section>
+
+      {/* Infinite Carousel */}
+      <section className="bg-white">
         <InfiniteLinkCarousel />
-      </div>
-      <div
-       className="bg-slate-800 py-16"
-      >
-        <GallerySection />
+      </section>
+
+      {/* Gallery Section */}
+      <section className="bg-gray-50">
         <GalleryCarousel />
-      </div>
-      <div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section>
         <WhyChooseUsSection />
-      </div>
-      <div>
-        <EstimateForm />
-      </div>
-    </>
+      </section>
+
+      {/* Contact Form */}
+      <EstimateForm />
+    </div>
   );
 }

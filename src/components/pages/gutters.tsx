@@ -2,7 +2,6 @@
 import ReviewSection from "@/components/review";
 import { Button } from "@/components/ui/button";
 import InfiniteLinkCarousel from "@/components/ui/infinite-carousel";
-import TitleWithLine from "@/components/ui/title-with-line";
 import PhoneCallButton from "@/components/ui/phonecall-btn";
 import ReviewCarousel from "@/components/ui/review-carousel";
 import { ProcessStep } from "@/components/ui/process-card";
@@ -13,15 +12,15 @@ import FAQ from "@/components/faq";
 import CarouselSlider from "@/components/ui/carousel";
 
 const heroSlides = [
-    {
-        id: 1,
-        title: "Professional Gutter Cleaning",
-        subtitle: "Protect Your Home. Prevent Water Damage.",
-        description:
-          "Expert gutter cleaning and maintenance designed for Florida's heavy rains and hurricane seasons. Keep your home protected year-round with professional gutter care.",
-        image: "/images/hero/4.png",
-    },
-  ];
+  {
+    id: 1,
+    title: "Professional Gutter Cleaning",
+    subtitle: "Protect Your Home. Prevent Water Damage.",
+    description:
+      "Expert gutter cleaning and maintenance designed for Florida's heavy rains and hurricane seasons. Keep your home protected year-round with professional gutter care.",
+    image: "/images/hero/4.png",
+  },
+];
 
 const GutterCleaningTemplate = () => {
   const benefits = [
@@ -76,7 +75,7 @@ const GutterCleaningTemplate = () => {
       id: "gutter-cost-tampa",
       question: "HOW MUCH DOES GUTTER CLEANING COST IN TAMPA BAY?",
       answer: (
-        <div className="space-y-4">
+        <div className="space-y-4 text-gray-600">
           <p>
             Professional gutter cleaning in Tampa Bay typically costs $150-400 
             depending on home size, gutter height, and debris level. Single-story 
@@ -88,7 +87,7 @@ const GutterCleaningTemplate = () => {
             and flow testing. Call{" "}
             <a
               href="tel:7272564467"
-              className="text-orange-600 font-semibold hover:text-orange-700"
+              className="text-blue-600 font-medium hover:text-blue-700 transition-colors"
             >
               (727) 256-4467
             </a>{" "}
@@ -119,17 +118,35 @@ const GutterCleaningTemplate = () => {
       id: "gutter-repairs",
       question: "DO YOU HANDLE GUTTER REPAIRS OR JUST CLEANING?",
       answer: (
-        <div className="space-y-3">
+        <div className="space-y-3 text-gray-600">
           <p>I provide comprehensive gutter services including:</p>
-          <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>Complete gutter and downspout cleaning</li>
-            <li>Minor leak repairs and resealing</li>
-            <li>Gutter realignment and slope adjustment</li>
-            <li>Loose bracket tightening and reinforcement</li>
-            <li>Downspout extension installation</li>
-            <li>Gutter guard installation and maintenance</li>
+          <ul className="grid grid-cols-1 gap-2 text-sm">
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Complete gutter and downspout cleaning
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Minor leak repairs and resealing
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Gutter realignment and slope adjustment
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Loose bracket tightening and reinforcement
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Downspout extension installation
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+              Gutter guard installation and maintenance
+            </li>
           </ul>
-          <p>For major replacements, I'll provide honest recommendations and referrals to trusted specialists.</p>
+          <p className="text-sm font-medium mt-4">For major replacements, I'll provide honest recommendations and referrals to trusted specialists.</p>
         </div>
       ),
     },
@@ -142,126 +159,116 @@ const GutterCleaningTemplate = () => {
   ];
 
   return (
-    <div className="overflow-x-hidden">
-        <CarouselSlider slides={heroSlides} />
-      {/* Hero Section */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 text-center space-y-6 sm:space-y-8">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-wide sm:tracking-wider uppercase text-zinc-700">
-          Professional Gutter Cleaning Services Tampa Bay
-        </h1>
-
-        <h2 className="max-w-5xl mx-auto text-lg sm:text-xl md:text-2xl font-bold text-orange-500/80 tracking-wide sm:tracking-wider px-2 sm:px-0">
-          Expert Gutter Maintenance Specialist Serving Tampa, St. Petersburg,
-          Clearwater & Pinellas Park
-        </h2>
-
-        <div className="pt-4 sm:pt-6">
-          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed w-full mx-auto px-2 sm:px-0 font-light">
-            Looking for a reliable gutter cleaning professional in Tampa Bay? I'm
-            a licensed specialist with over 10 years of experience protecting homes
-            throughout Tampa, St. Petersburg, Clearwater, and Pinellas Park. My
-            journey began in commercial building maintenance, where I mastered working
-            at heights safely and efficiently on large-scale properties - from
-            office complexes to industrial facilities. My commercial background taught
-            me the critical importance of proper water management systems, advanced
-            safety protocols, and preventive maintenance that saves thousands in
-            water damage repairs. Today, I bring that same professional-grade
-            expertise to protect your home's most important drainage system.
+    <div className="min-h-screen bg-white">
+      {/* Hero Carousel */}
+      <CarouselSlider slides={heroSlides} />
+      
+      {/* Hero Content Section */}
+      <section className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
+        <div className="text-center space-y-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight uppercase">
+            Professional Gutter Cleaning Services
+            <span className="text-blue-600 block mt-2">Tampa Bay</span>
+          </h1>
+          
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Expert Gutter Maintenance Specialist Serving Tampa, St. Petersburg, Clearwater & Pinellas Park
           </p>
-        </div>
-        
-        <div className="flex flex-col md:flex-row justify-center align-middle gap-4 pt-6 sm:pt-8">
-          <Button
-            size={"lg"}
-            variant={"outline"}
-            className="font-bold border-orange-500 border-2 text-orange-500 hover:text-orange-50 hover:bg-orange-500 pointer"
-          >
-            Get Free Estimate
-          </Button>
-          <PhoneCallButton />
+          
+          <div className="pt-8">
+            <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto">
+              Looking for a reliable gutter cleaning professional in Tampa Bay? I'm a licensed specialist with over 10 years of experience protecting homes throughout Tampa, St. Petersburg, Clearwater, and Pinellas Park. My journey began in commercial building maintenance, where I mastered working at heights safely and efficiently on large-scale properties. Today, I bring that same professional-grade expertise to protect your home's most important drainage system.
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
+            <Button 
+              size="xl"
+              variant="outline"
+              className="border border-blue-500 text-blue-500 px-8 py-3 rounded-full font-medium transition-colors duration-200"
+            >
+              Get Free Estimate
+            </Button>
+            <PhoneCallButton className="rounded-full" />
+          </div>
         </div>
       </section>
 
-      {/* Carousel Section */}
-      <section className="">
+      {/* Infinite Carousel */}
+      <section className="bg-gray-50">
         <InfiniteLinkCarousel />
       </section>
 
       {/* Reviews Section */}
-      <section className="bg-white py-12 sm:py-16 lg:py-20">
+      <section className="bg-white py-16 lg:py-24">
         <ReviewSection />
-        <div className="mt-12 sm:mt-16">
+        <div className="mt-16">
           <ReviewCarousel />
         </div>
       </section>
 
-      {/* Main Content - Dark Background */}
-      <div className="bg-gray-900 text-white">
-        {/* Why Choose Us Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto">
-            <TitleWithLine
-              titleText="Why Choose My Gutter Cleaning Services in Tampa Bay?"
-              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight text-start"
-            />
+      {/* Why Choose Us Section */}
+      <section className="bg-gray-50 py-16 lg:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose My Gutter Cleaning Services?
+            </h2>
+            <div className="w-16 h-1 bg-blue-600 mx-auto"></div>
+          </div>
 
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 xl:gap-16">
-              {/* Image Section */}
-              <div className="w-full lg:w-1/2 flex-shrink-0">
-                <div className="relative overflow-hidden rounded-lg shadow-2xl">
-                  <img
-                    src="/images/gutters/1.png"
-                    alt="Professional gutter cleaning in Tampa Bay"
-                    className="w-full h-64 sm:h-80 lg:h-96 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-900/20 to-transparent"></div>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="w-full lg:w-1/2">
-                <div className="space-y-4 sm:space-y-5 lg:space-y-6">
-                  {benefits.map((benefit, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 sm:gap-4"
-                    >
-                      <span className="text-green-400 text-lg sm:text-xl md:text-2xl font-bold mt-0.5 flex-shrink-0">
-                        ✓
-                      </span>
-                      <p className="text-sm sm:text-base md:text-lg lg:text-xl font-medium leading-relaxed">
-                        {benefit}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Image */}
+            <div className="order-2 lg:order-1">
+              <div className="relative overflow-hidden rounded-2xl shadow-lg">
+                <img
+                  src="/images/gutters/1.png"
+                  alt="Professional gutter cleaning in Tampa Bay"
+                  className="w-full h-64 sm:h-80 lg:h-96 object-cover"
+                />
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Gutter Cleaning Process Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto">
-            <TitleWithLine
-              titleText="My Professional Gutter Cleaning Process"
-               className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 leading-tight text-start"
-            />
-            <ProcessCard steps={cleaningProcessData} />
+            {/* Benefits List */}
+            <div className="order-1 lg:order-2 space-y-6">
+              {benefits.map((benefit, index) => (
+                <div key={index} className="flex items-start gap-4 group">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-green-200 transition-colors">
+                    <span className="text-green-600 text-sm font-bold">✓</span>
+                  </div>
+                  <p className="text-gray-700 font-medium leading-relaxed">
+                    {benefit}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* FAQ Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="max-w-6xl mx-auto">
-            <FAQ 
-              questions={faqData}
-              title="Frequently Asked Gutter Cleaning Questions"
-              subtitle="Have questions about protecting your home? Here's what Tampa Bay homeowners ask us most about professional gutter cleaning."
-            />
+      {/* Process Section */}
+      <section className="bg-white py-16 lg:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              My Professional Gutter Cleaning Process
+            </h2>
+            <div className="w-16 h-1 bg-blue-600 mx-auto"></div>
           </div>
-        </section>
-      </div>
+          <ProcessCard steps={cleaningProcessData} />
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-gray-50 py-16 lg:py-24">
+        <div className="max-w-4xl mx-auto px-6">
+          <FAQ 
+            questions={faqData}
+            title="Frequently Asked Gutter Cleaning Questions"
+            subtitle="Have questions about protecting your home? Here's what Tampa Bay homeowners ask us most about professional gutter cleaning."
+          />
+        </div>
+      </section>
     </div>
   );
 };
