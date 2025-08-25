@@ -14,8 +14,8 @@ const WhyChooseUsSection: React.FC = () => {
     {
       id: 1,
       icon: <Users className="w-6 h-6 text-white" />,
-      title: "Family-Owned And Locally Trusted",
-      description: "Family-owned in Tampa, FL — no third parties, just honest work and personal care. We treat your home like it's our own, with the transparency and respect you'd expect from family."
+      title: "Quality Paint Jobs, On Schedule",
+      description: "Tampa Bay painters — no third parties, just quality paint jobs delivered on schedule. We treat your home like it's our own, with the craftsmanship and reliability you'd expect from family."
     },
     {
       id: 2,
@@ -26,13 +26,13 @@ const WhyChooseUsSection: React.FC = () => {
     {
       id: 3,
       icon: <Paintbrush className="w-6 h-6 text-white" />,
-      title: "Free Estimate",
-      description: "We offer free, no-pressure estimates — no hidden fees, no sales tricks. Just honest pricing, clear answers, and guidance you can trust from a family who cares."
+      title: "Fast Estimate",
+      description: "We offer quick, no-pressure estimates — no hidden fees, no sales tricks. Just honest pricing, clear answers, and guidance from a team who cares."
     },
     {
       id: 4,
       icon: <Shield className="w-6 h-6 text-white" />,
-      title: "10+ Years of Trusted Experience",
+      title: "7+ Years of Professional Experience",
       description: "Over a decade of hands-on work in Florida's unique climate, I've honed the skills and knowledge to deliver lasting results."
     }
   ];
@@ -97,14 +97,14 @@ const WhyChooseUsSection: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Get Quote Button */}
               <button className="group bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg flex-1 sm:flex-none">
-                <span>Get a Free Quote</span>
+                <span>Get a Quote</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </button>
 
               {/* Phone Button */}
-              <Link href='tel:7272564467' className="group bg-white hover:bg-gray-50 text-gray-800 font-medium px-8 py-3 rounded-xl border border-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg flex-1 sm:flex-none">
+              <Link href='tel:7276145087' className="group bg-white hover:bg-gray-50 text-gray-800 font-medium px-8 py-3 rounded-xl border border-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg flex-1 sm:flex-none">
                 <Phone className="w-4 h-4 text-gray-600" />
-                <span>(727) 256-4467</span>
+                <span>(727) 614-5087</span>
               </Link>
             </div>
           </div>

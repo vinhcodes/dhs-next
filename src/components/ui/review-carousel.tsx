@@ -59,7 +59,7 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
       name: "Jennifer Runk",
       date: "2025-04-23",
       rating: 5,
-      text: "We just had Peach Painting do a 5th project for us, this was a small project of painting three new cabinets to match the cabinets that they painted...",
+      text: "We just had Diverse Home Solution do a 5th project for us, this was a small project of painting three new cabinets to match the cabinets that they painted...",
       avatar:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
       verified: true,
@@ -69,7 +69,7 @@ const ReviewCarousel: React.FC<{ reviews?: Review[] }> = ({
       name: "Michael Torres",
       date: "2025-04-20",
       rating: 5,
-      text: "I recently hired Peach Painting for a complete exterior paint job and I couldn't be more satisfied with the results. The team was professional...",
+      text: "I recently hired Diverse Home Solution for a complete exterior paint job and I couldn't be more satisfied with the results. The team was professional...",
       avatar:
         "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
       verified: true,

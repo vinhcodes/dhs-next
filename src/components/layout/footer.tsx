@@ -27,10 +27,10 @@ const Footer: React.FC = () => {
             {/* Tagline */}
             <div className="text-center lg:text-left">
               <h3 className="text-xl font-semibold text-gray-100 mb-3 leading-tight">
-                Tampa Bay's Premier Painting Experts
+              Tampa Bay Painting Services
               </h3>
               <p className="text-gray-400 leading-relaxed">
-                Professional interior and exterior painting services with over 10 years of experience serving Tampa, St. Petersburg, Clearwater, and Pinellas Park.
+              Professional Interior & Exterior Painting in Tampa Bay
               </p>
             </div>
 
@@ -78,9 +78,9 @@ const Footer: React.FC = () => {
                 { name: 'Interior Painting', href: '/interior-painting' },
                 { name: 'Exterior Painting', href: '/exterior-painting' },
                 { name: 'Cabinet Makeover', href: '/cabinet-makeover' },
-                { name: 'Pressure Washing', href: '/pressure-washing' },
-                { name: 'Window Washing', href: '/window-washing' },
-                { name: 'Gutter Cleaning', href: '/gutters-cleaning' }
+                { name: 'Garage Floor Painting', href: '/garage-floor-painting' },
+                { name: 'Pool Painting', href: '/pool-painting' },
+                { name: 'Fence Painting', href: '/fence-painting' }
               ].map((service) => (
                 <li key={service.name}>
                   <a 
@@ -103,10 +103,10 @@ const Footer: React.FC = () => {
                   <Phone className="w-4 h-4 text-white" />
                 </div>
                 <a 
-                  href="tel:7272564467"
+                  href="tel:7276145087"
                   className="text-gray-300 hover:text-white transition-colors duration-200 font-medium"
                 >
-                  (727) 256-4467
+                  (727) 614-5087
                 </a>
               </div>
 
@@ -135,11 +135,11 @@ const Footer: React.FC = () => {
             {/* CTA Button */}
             <div className="mt-8">
               <a
-                href="tel:7272564467"
+                href="tel:7276145087"
                 className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
               >
                 <Phone className="w-4 h-4 mr-2" />
-                Get Free Estimate
+                Get A Estimate
               </a>
             </div>
           </div>

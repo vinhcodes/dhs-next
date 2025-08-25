@@ -13,145 +13,146 @@ import CarouselSlider from "@/components/ui/carousel";
 
 const heroSlides = [
   {
-    id: 3,
-    title: "Cabinet Refinishing Service",
-    subtitle: "Revive, Don't Replace",
+    id: 1,
+    title: "Professional Fence Painting",
+    subtitle: "Protect Your Property. Enhance Your Curb Appeal.",
     description:
-      "Our cabinet refinishing service gives your existing cabinets a fresh, clean look—without the cost of a full remodel.",
-    image: "/images/hero/3.png",
+      "Expert fence painting services using weather-resistant coatings designed to protect and beautify your property boundaries while withstanding Florida's challenging climate.",
+    image: "/images/hero/5.png",
   },
 ];
 
-const CabinetTemplate = () => {
+const FencePaintingTemplate = () => {
   const benefits = [
-    "Master-Level Craftsmanship with 7+ Years Experience",
-    "Commercial-Grade Surface Preparation & Priming",
-    "Custom Color Matching & Design Consultation",
-    "Durable Finishes Built for High-Traffic Kitchens",
+    "Master-Level Expertise with 7+ Years Experience",
+    "Weather-Resistant Coatings & Professional Preparation",
+    "Florida Hurricane & UV Protection Specialists",
+    "All Fence Materials: Wood, Vinyl, Metal & Composite",
   ];
 
   const paintingProcessData: ProcessStep[] = [
     {
       id: 1,
-      title: "Detailed Assessment & Custom Design",
-      subtitle: "The foundation of every stunning kitchen transformation",
-      label: "What I do differently",
+      title: "Complete Fence Assessment & Surface Preparation",
+      subtitle: "The foundation of long-lasting fence protection",
+      label: "What I assess differently",
       items: [
-        "Complete cabinet condition assessment and repair evaluation",
-        "Custom color consultation with kitchen lighting analysis",
-        "Hardware upgrade recommendations and coordination",
-        "Detailed timeline planning to minimize kitchen disruption",
+        "Comprehensive fence condition evaluation and material analysis",
+        "Weather damage assessment and repair recommendations",
+        "Professional cleaning and surface preparation for each material type",
+        "Hardware inspection and rust treatment for metal components",
       ],
     },
     {
       id: 2,
-      title: "Professional Surface Preparation & Priming",
-      subtitle: "7+ Years of Experience, Exceptional Results.",
-      label: "Expert preparation process",
+      title: "Professional Coating & Protection Application",
+      subtitle: "Where 7+ years of experience ensures lasting results",
+      label: "Expert application process",
       items: [
-        "Complete cabinet door and drawer removal for workshop-quality finish",
-        "Thorough cleaning, sanding, and degreasing of all surfaces",
-        "High-adhesion primer specifically designed for kitchen cabinets",
-        "Professional spray booth setup for flawless, even coverage",
+        "Weather-resistant stains and paints designed for outdoor exposure",
+        "Specialized techniques for wood, vinyl, metal, and composite materials",
+        "Professional spray and brush application for optimal coverage",
+        "Multiple coats applied under ideal weather conditions",
       ],
     },
     {
       id: 3,
-      title: "Premium Application & Quality Assurance",
-      subtitle: "Your kitchen transformation guaranteed to last",
+      title: "Quality Assurance & Property Protection",
+      subtitle: "Your fence transformation guaranteed to withstand Florida weather",
       label: "What's included",
       items: [
-        "Multiple thin coats of premium cabinet-grade paint",
-        "Professional hardware installation and adjustment",
-        "Complete cleanup and kitchen restoration",
-        "5-year durability guarantee against chipping and wear",
+        "Complete quality inspection and touch-up of any missed areas",
+        "Landscape protection and complete cleanup",
+        "Hardware reinstallation and gate functionality testing",
       ],
     },
   ];
 
   const faqData: FAQItem[] = [
     {
-      id: "cabinet-cost-tampa",
-      question: "HOW MUCH DOES CABINET PAINTING COST IN TAMPA BAY?",
+      id: "fence-cost-tampa",
+      question: "HOW MUCH DOES FENCE PAINTING COST IN TAMPA BAY?",
       answer: (
         <div className="space-y-4 text-gray-600">
           <p>
-            Cabinet painting in Tampa Bay typically costs $3,000-8,000 for a
-            full kitchen, depending on cabinet size, condition, and finish
-            complexity. This is 60-80% less expensive than full cabinet
-            replacement, which often costs $15,000-40,000.
+            Professional fence painting in Tampa Bay typically costs $3-8 per
+            linear foot depending on fence height, material, and condition.
+            Standard 6-foot wood fences average $5-7 per foot, while metal
+            fences requiring rust treatment can be $6-10 per foot. This
+            investment significantly extends your fence's lifespan and enhances
+            property value.
           </p>
           <p>
-            We provide detailed estimates including all materials, labor, and
-            hardware options. Call{" "}
+            We provide detailed estimates based on fence measurements, material
+            type, and preparation requirements. Call{" "}
             <a
               href="tel:7276145087"
               className="text-blue-600 font-medium hover:text-blue-700 transition-colors"
             >
               (727) 614-5087
             </a>{" "}
-            for consultation and kitchen transformation estimate!
+            for your free fence assessment and protection estimate!
           </p>
         </div>
       ),
     },
     {
-      id: "cabinet-timeline",
-      question: "HOW LONG DOES CABINET PAINTING TAKE?",
+      id: "fence-timeline",
+      question: "HOW LONG DOES FENCE PAINTING TAKE?",
       answer:
-        "Most cabinet painting projects take 4-7 days to complete. We remove doors and drawers for 2-3 days of workshop finishing, while painting cabinet boxes in your home takes 1-2 days. Final installation and touch-ups require 1 additional day. We work efficiently to minimize kitchen disruption and can often coordinate with your schedule for optimal convenience.",
+        "Most fence painting projects take 3-7 days depending on fence length and material type. Preparation takes 1-2 days, while application requires 2-3 days for proper coverage. Weather conditions can affect the timeline, but we work efficiently to complete your project while ensuring quality results.",
     },
     {
-      id: "cabinet-durability",
-      question: "HOW LONG WILL MY PAINTED CABINETS LAST?",
+      id: "fence-durability",
+      question: "HOW LONG WILL MY FENCE PAINT LAST IN FLORIDA?",
       answer:
-        "With proper preparation and premium cabinet-grade paints, painted cabinets can last 10-15 years or more. We use high-durability finishes specifically designed for kitchen environments - resistant to moisture, grease, and daily wear. Our 5-year guarantee covers chipping, peeling, and normal kitchen use when properly maintained.",
+        "With proper preparation and weather-resistant coatings, fence paint can last 5-10 years in Florida's climate. We use specialized outdoor paints that resist UV damage, moisture, and thermal expansion. Our warranty covers normal weather exposure and properly maintained fences.",
     },
     {
-      id: "cabinet-materials",
-      question: "WHAT TYPE OF PAINT DO YOU USE FOR KITCHEN CABINETS?",
-      answer:
-        "We use premium cabinet-specific paints like Benjamin Moore Advance and Sherwin-Williams ProClassic. These are hybrid enamel paints that cure to an extremely hard, smooth finish perfect for kitchen use. They're self-leveling, which eliminates brush marks, and provide superior durability against moisture, heat, and daily cleaning.",
-    },
-    {
-      id: "kitchen-disruption",
-      question: "CAN I STILL USE MY KITCHEN DURING THE PROJECT?",
+      id: "fence-materials",
+      question: "WHAT TYPES OF FENCES CAN YOU PAINT?",
       answer: (
         <div className="space-y-3 text-gray-600">
-          <p>Yes! We plan projects to minimize kitchen disruption:</p>
+          <p>We professionally paint all fence materials including:</p>
           <ul className="grid grid-cols-1 gap-2 text-sm">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
-              Doors and drawers are removed for off-site finishing
+              Wood fences (cedar, pine, pressure-treated lumber)
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
-              Lower cabinets remain functional during upper cabinet work
+              Metal fences (aluminum, steel, wrought iron)
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
-              Sink and appliances stay accessible when possible
+              Vinyl fences requiring color refresh
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
-              We can work in phases to maintain kitchen functionality
+              Composite fencing materials
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
-              Clear timeline communication so you can plan accordingly
+              Chain link with privacy slats
             </li>
           </ul>
           <p className="text-sm font-medium mt-4">
-            Most families can maintain basic kitchen use throughout the project!
+            Each material receives specialized preparation and coating treatment!
           </p>
         </div>
       ),
     },
     {
-      id: "cabinet-vs-replacement",
-      question: "IS CABINET PAINTING BETTER THAN REPLACING CABINETS?",
+      id: "fence-weather",
+      question: "CAN YOU PAINT FENCES DURING FLORIDA'S RAINY SEASON?",
       answer:
-        "Cabinet painting is ideal if your cabinet boxes are structurally sound but outdated in appearance. You'll save 60-80% compared to replacement while achieving a completely fresh look. Replacement is better for damaged cabinets or major layout changes. During our consultation, I'll honestly assess whether painting or replacement is the better investment for your specific situation.",
+        "Yes, but we carefully plan around weather conditions. We monitor forecasts and avoid painting when rain is expected within 24-48 hours. Florida's high humidity requires special timing and paint selection. We often work in the early morning when humidity is lower and allow proper curing time before weather changes.",
+    },
+    {
+      id: "fence-maintenance",
+      question: "HOW DO I MAINTAIN MY NEWLY PAINTED FENCE?",
+      answer:
+        "Regular maintenance includes annual cleaning with mild detergent, trimming vegetation away from the fence, and inspecting for damage after storms. Avoid pressure washing painted surfaces and touch up any scratches or chips promptly. We provide detailed maintenance guidelines and can perform annual inspections to maximize your fence's lifespan.",
     },
   ];
 
@@ -164,25 +165,25 @@ const CabinetTemplate = () => {
       <section className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
         <div className="text-center space-y-6">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight uppercase">
-            Professional Cabinet Painting Services
+            Professional Fence Painting Services
             <span className="text-blue-600 block mt-2">Tampa Bay</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Expert Cabinet Makeover Specialist Serving Tampa, St. Petersburg,
+            Expert Fence Painting Specialist Serving Tampa, St. Petersburg,
             Clearwater & Pinellas Park
           </p>
 
           <div className="pt-8">
             <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto">
-              Looking for a skilled cabinet painting specialist in Tampa Bay?
+              Looking for professional fence painting services in Tampa Bay?
               I'm a professional painter with nearly a decade of experience
-              transforming kitchens throughout Tampa, St. Petersburg,
+              protecting and beautifying fences throughout Tampa, St. Petersburg,
               Clearwater, and Pinellas Park. My journey began in commercial
-              painting, where I mastered working with high-traffic surfaces and
-              demanding durability requirements. Today, I bring that same
-              professional-grade expertise to transform your kitchen cabinets
-              with results that rival expensive full replacements.
+              painting, where I mastered working with diverse materials and
+              weather-resistant coatings. Today, I bring that same
+              professional-grade expertise to protect your property boundaries
+              and enhance your home's curb appeal.
             </p>
           </div>
 
@@ -217,7 +218,7 @@ const CabinetTemplate = () => {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose My Cabinet Painting Services?
+              Why Choose My Fence Painting Services?
             </h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto"></div>
           </div>
@@ -227,8 +228,8 @@ const CabinetTemplate = () => {
             <div className="order-2 lg:order-1">
               <div className="relative overflow-hidden rounded-2xl shadow-lg">
                 <img
-                  src="/images/cabinet/1.png"
-                  alt="Professional cabinet painting in Tampa Bay"
+                  src="/images/fence/1.png"
+                  alt="Professional fence painting in Tampa Bay"
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
               </div>
@@ -256,7 +257,7 @@ const CabinetTemplate = () => {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              My Signature Cabinet Transformation Process
+              My Professional Fence Painting Process
             </h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto"></div>
           </div>
@@ -269,8 +270,8 @@ const CabinetTemplate = () => {
         <div className="max-w-4xl mx-auto px-6">
           <FAQ
             questions={faqData}
-            title="Frequently Asked Cabinet Painting Questions"
-            subtitle="Have questions before booking your kitchen transformation? Here's what Tampa Bay homeowners ask us most about cabinet painting."
+            title="Frequently Asked Fence Painting Questions"
+            subtitle="Have questions about protecting your property boundaries? Here's what Tampa Bay homeowners ask us most about professional fence painting."
           />
         </div>
       </section>
@@ -278,4 +279,4 @@ const CabinetTemplate = () => {
   );
 };
 
-export default CabinetTemplate;
+export default FencePaintingTemplate;

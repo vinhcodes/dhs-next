@@ -13,13 +13,13 @@ export default function PhoneCallButton({ className }: PhoneCallButtonProps) {
     <Button
     size={'xl'}
       onClick={() => {
-        const phone = "tel:7272564467";
+        const phone = "tel:7276145087";
         window.location.href = phone;
       }}
       className={`${className} bg-blue-500 hover:bg-blue-600 font-bold pointer`}
     >
       <PhoneIcon className="my-auto" size={20} />{" "}
-      <span>(727) 256-4467</span>
+      <span>(727) 614-5087</span>
     </Button>
   );
 }

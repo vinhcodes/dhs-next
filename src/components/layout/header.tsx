@@ -12,9 +12,9 @@ const navItems = [
       { label: "Interior Painting", href: "/interior-painting" },
       { label: "Exterior Painting", href: "/exterior-painting" },
       { label: "Cabinet Makeover", href: "/cabinet-makeover" },
-      { label: "Gutters Cleaning", href: "/gutters-cleaning" },
-      { label: "Window Washing", href: "/window-washing" },
-      { label: "Pressure Washing", href: "/pressure-washing" }
+      { label: "Pool Painting", href: "/pool-painting" },
+      { label: "Fence Painting", href: "/fence-painting" },
+      { label: "Garage Floor Painting", href: "/garage-floor-painting" }
     ]
   },
   { label: "Contact", href: "/contact" }
@@ -26,12 +26,12 @@ const Header = () => {
       <Navigation
         logo={{
           icon: <Image src="/images/logo_06.png" alt="logo" width={140} height={140} />,
-          text: "(727) 256-4467",
-          href: "tel:7272564467",
+          text: "DHS Services",
+          href: "/",
         }}
         navItems={navItems}
         phone={
-          {number: '3522169869'}
+          {number: '7276145087'}
         }
       />
     </div>

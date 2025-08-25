@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Send, User, Mail, Phone, Paintbrush, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Send, User, Mail, Phone, Paintbrush, AlertCircle, CheckCircle2, MapPin, Upload, X, Square } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 // Zod-like validation (simplified for artifact environment)
@@ -39,6 +39,9 @@ interface FormData {
   email: string;
   phone: string;
   service: string;
+  address?: string;
+  photos?: FileList | null;
+  squareFootage?: string;
 }
 
 const EstimateForm: React.FC = () => {
@@ -47,8 +50,17 @@ const EstimateForm: React.FC = () => {
     lastName: '',
     email: '',
     phone: '',
-    service: ''
+    service: '',
+    address: '',
+    photos: null,
+    squareFootage: ''
   });
+
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+
+  // Services that need square footage
+  const paintingServices = ['interior-painting', 'exterior-painting', 'garage-floor-painting', 'pool-painting'];
+  const showSquareFootage = paintingServices.includes(formData.service);
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,9 +71,9 @@ const EstimateForm: React.FC = () => {
     { value: 'interior-painting', label: 'Interior Painting' },
     { value: 'exterior-painting', label: 'Exterior Painting' },
     { value: 'cabinet-makeover', label: 'Cabinet Makeover' },
-    { value: 'gutters-cleaning', label: 'Gutters Cleaning' },
-    { value: 'window-washing', label: 'Window Washing' },
-    { value: 'pressure-washing', label: 'Pressure Washing' }
+    { value: 'pool-painting', label: 'Pool Painting' },
+    { value: 'fence-painting', label: 'Fence Painting' },
+    { value: 'garage-floor-painting', label: 'Garage Floor Painting' }
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -77,6 +89,63 @@ const EstimateForm: React.FC = () => {
         ...prev,
         [name]: undefined
       }));
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      // Filter for image files only
+      const imageFiles = Array.from(files).filter(file => 
+        file.type.startsWith('image/')
+      );
+      
+      // Limit to 5 files
+      const limitedFiles = imageFiles.slice(0, 5);
+      
+      setUploadedFiles(prev => {
+        const newFiles = [...prev, ...limitedFiles].slice(0, 5);
+        return newFiles;
+      });
+      
+      setFormData(prev => ({
+        ...prev,
+        photos: files
+      }));
+    }
+  };
+
+  const removeFile = (index: number) => {
+    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const getSquareFootageLabel = (service: string) => {
+    switch (service) {
+      case 'interior-painting':
+        return 'square feet of interior space';
+      case 'exterior-painting':
+        return 'square feet of exterior surface';
+      case 'garage-floor-painting':
+        return 'square feet of garage floor';
+      case 'pool-painting':
+        return 'square feet of pool surface';
+      default:
+        return 'square feet';
+    }
+  };
+
+  const getSquareFootageHelper = (service: string) => {
+    switch (service) {
+      case 'interior-painting':
+        return 'Include all rooms and areas to be painted. This helps us calculate paint quantities and labor time.';
+      case 'exterior-painting':
+        return 'Include walls, trim, and other surfaces to be painted. Approximate measurements are fine.';
+      case 'garage-floor-painting':
+        return 'Measure the length × width of your garage floor area to be coated.';
+      case 'pool-painting':
+        return 'Include pool walls and floor surface area. We can help calculate this during our assessment.';
+      default:
+        return 'Approximate square footage helps us provide more accurate estimates.';
     }
   };
 
@@ -118,7 +187,10 @@ const EstimateForm: React.FC = () => {
         lastName: '',
         email: '',
         phone: '',
-        service: ''
+        service: '',
+        address: '',
+        photos: null,
+        squareFootage: ''
       });
 
     } catch (error) {
@@ -136,14 +208,14 @@ const EstimateForm: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="text-blue-600 font-semibold text-sm tracking-wider uppercase mb-4">
-            Get Your Free Estimate
+            Get Your Estimate
           </div>
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
             Ready to Transform Your Space?
           </h2>
           <div className="w-16 h-1 bg-blue-600 mx-auto mb-6"></div>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            Get a free, no-obligation estimate from us. We'll provide you with a detailed quote within 24 hours.
+            Get a quick, no-obligation estimate from us. We'll provide you with a detailed quote within 24 hours.
           </p>
         </div>
 
@@ -164,7 +236,7 @@ const EstimateForm: React.FC = () => {
             <Alert className="mb-8 border-red-200 bg-red-50">
               <AlertCircle className="h-5 w-5 text-red-600" />
               <AlertDescription className="text-red-800 font-medium">
-                Sorry, there was an error submitting your request. Please try again or call us at (727) 256-4467.
+                Sorry, there was an error submitting your request. Please try again or call us at (727) 614-5087.
               </AlertDescription>
             </Alert>
           )}
@@ -336,6 +408,105 @@ const EstimateForm: React.FC = () => {
               )}
             </div>
 
+            {/* Square Footage Field (Conditional & Optional) */}
+            {showSquareFootage && (
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-gray-900">
+                  Approximate Square Footage <span className="text-gray-500 font-normal">(Optional)</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Square className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <input
+                    type="number"
+                    name="squareFootage"
+                    value={formData.squareFootage || ''}
+                    onChange={handleInputChange}
+                    className="w-full h-12 pl-12 pr-4 text-sm border rounded-xl bg-gray-50 focus:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-200 hover:border-gray-300"
+                    placeholder={`Enter approximate ${getSquareFootageLabel(formData.service)} (e.g., 1200)`}
+                    min="1"
+                  />
+                </div>
+                <p className="text-xs text-gray-500">
+                  {getSquareFootageHelper(formData.service)}
+                </p>
+              </div>
+            )}
+
+            {/* Address Field (Optional) */}
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-900">
+                Project Address <span className="text-gray-500 font-normal">(Optional)</span>
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <MapPin className="h-4 w-4 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address || ''}
+                  onChange={handleInputChange}
+                  className="w-full h-12 pl-12 pr-4 text-sm border rounded-xl bg-gray-50 focus:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-200 hover:border-gray-300"
+                  placeholder="Enter project address (helps with accurate estimates)"
+                />
+              </div>
+            </div>
+
+            {/* Photo Upload (Optional) */}
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-gray-900">
+                Project Photos <span className="text-gray-500 font-normal">(Optional)</span>
+              </label>
+              <div className="space-y-3">
+                <div className="relative">
+                  <input
+                    type="file"
+                    id="photo-upload"
+                    multiple
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="photo-upload"
+                    className="w-full h-24 border-2 border-dashed border-gray-300 hover:border-blue-400 rounded-xl bg-gray-50 hover:bg-blue-50 transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-2"
+                  >
+                    <Upload className="h-6 w-6 text-gray-400" />
+                    <div className="text-center">
+                      <p className="text-sm font-medium text-gray-600">Upload project photos</p>
+                      <p className="text-xs text-gray-500">PNG, JPG up to 10MB each (max 5 photos)</p>
+                    </div>
+                  </label>
+                </div>
+                
+                {/* Uploaded Files Display */}
+                {uploadedFiles.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-sm text-gray-600">{uploadedFiles.length} photo(s) selected:</p>
+                    <div className="space-y-1">
+                      {uploadedFiles.map((file, index) => (
+                        <div key={index} className="flex items-center justify-between p-2 bg-blue-50 rounded-lg">
+                          <span className="text-sm text-gray-700 truncate flex-1 mr-2">{file.name}</span>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(index)}
+                            className="text-red-500 hover:text-red-700 transition-colors"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <p className="text-xs text-gray-500">
+                Photos help us provide more accurate estimates by showing the project scope and current conditions.
+              </p>
+            </div>
+
             {/* Submit Button */}
             <div className="pt-6">
               <button
@@ -351,7 +522,7 @@ const EstimateForm: React.FC = () => {
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    Get My Free Estimate
+                    Get A Estimate
                   </>
                 )}
               </button>
@@ -371,11 +542,11 @@ const EstimateForm: React.FC = () => {
         <div className="mt-8 text-center">
           <p className="text-gray-600 mb-4">Prefer to talk? Give us a call!</p>
           <a
-            href="tel:7272564467"
+            href="tel:7276145087"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-50 text-gray-900 font-semibold rounded-xl border border-gray-200 transition-colors duration-200"
           >
             <Phone className="w-4 h-4" />
-            (727) 256-4467
+            (727) 614-5087
           </a>
         </div>
       </div>

@@ -24,11 +24,10 @@ const heroSlides = [
 
 const ExteriorTemplate = () => {
   const benefits = [
-    "Master-Level Craftsmanship with 10+ Years Experience",
+    "Master-Level Craftsmanship with 7+ Years Experience",
     "Commercial-Grade Weather Preparation Process",
     "Florida Hurricane & UV Resistance Expertise",
     "All Surface Types & Premium Weather Coatings",
-    "Licensed, Insured & Weather-Tested Guarantee",
   ];
 
   const paintingProcessData: ProcessStep[] = [
@@ -47,7 +46,7 @@ const ExteriorTemplate = () => {
     {
       id: 2,
       title: "Premium Weather-Resistant Application",
-      subtitle: "Where 10+ years of Florida experience shows",
+      subtitle: "Where 7+ years of Florida experience shows",
       label: "Professional techniques",
       items: [
         "Premium painter's tape and surface protection systems",
@@ -86,12 +85,12 @@ const ExteriorTemplate = () => {
             We provide detailed estimates including weather-resistant materials,
             extensive prep work, and hurricane-season guarantees. Call{" "}
             <a
-              href="tel:7272564467"
+              href="tel:7276145087"
               className="text-blue-600 font-medium hover:text-blue-700 transition-colors"
             >
-              (727) 256-4467
+              (727) 614-5087
             </a>{" "}
-            for your free weather assessment and estimate!
+            for a estimate!
           </p>
         </div>
       ),
@@ -150,7 +149,9 @@ const ExteriorTemplate = () => {
               Window and fixture masking
             </li>
           </ul>
-          <p className="text-sm font-medium mt-4">Proper preparation is critical for Florida's demanding climate!</p>
+          <p className="text-sm font-medium mt-4">
+            Proper preparation is critical for Florida's demanding climate!
+          </p>
         </div>
       ),
     },
@@ -166,7 +167,7 @@ const ExteriorTemplate = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Carousel */}
       <CarouselSlider slides={heroSlides} />
-      
+
       {/* Hero Content Section */}
       <section className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
         <div className="text-center space-y-6">
@@ -174,24 +175,32 @@ const ExteriorTemplate = () => {
             Professional Exterior Painting Services
             <span className="text-blue-600 block mt-2">Tampa Bay</span>
           </h1>
-          
+
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Expert Exterior Painting Contractor Serving Tampa, St. Petersburg, Clearwater & Pinellas Park
+            Expert Exterior Painting Contractor Serving Tampa, St. Petersburg,
+            Clearwater & Pinellas Park
           </p>
-          
+
           <div className="pt-8">
             <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto">
-              Looking for a skilled exterior painting contractor in Tampa Bay? I'm a licensed professional painter with over 10 years of experience protecting homes throughout Tampa, St. Petersburg, Clearwater, and Pinellas Park. My journey began in commercial painting, where I mastered working with challenging weather conditions and large-scale exterior projects. Today, I bring that same professional-grade expertise to protect and beautify your home's exterior.
+              Looking for a skilled exterior painting contractor in Tampa Bay?
+              I'm a a professional painter with nearly a decade of experience
+              protecting homes throughout Tampa, St. Petersburg, Clearwater, and
+              Pinellas Park. My journey began in commercial painting, where I
+              mastered working with challenging weather conditions and
+              large-scale exterior projects. Today, I bring that same
+              professional-grade expertise to protect and beautify your home's
+              exterior.
             </p>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
-            <Button 
+            <Button
               size="xl"
               variant="outline"
               className="border border-blue-500 text-blue-500 px-8 py-3 rounded-full font-medium transition-colors duration-200"
             >
-              Get Free Estimate
+              Get A Estimate
             </Button>
             <PhoneCallButton className="rounded-full" />
           </div>
@@ -266,7 +275,7 @@ const ExteriorTemplate = () => {
       {/* FAQ Section */}
       <section className="bg-gray-50 py-16 lg:py-24">
         <div className="max-w-4xl mx-auto px-6">
-          <FAQ 
+          <FAQ
             questions={faqData}
             title="Frequently Asked Exterior Painting Questions"
             subtitle="Have questions before booking your next project? Here's what Tampa Bay homeowners ask us most about exterior painting."

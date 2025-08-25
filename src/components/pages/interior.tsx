@@ -25,11 +25,10 @@ const heroSlides = [
 
 const InteriorTemplate = () => {
   const benefits = [
-    "Master-Level Craftsmanship with 10+ Years Experience",
-    "Commercial-Grade Preparation Process", 
+    "Master-Level Craftsmanship with 7+ Years Experience",
+    "Commercial-Grade Preparation Process",
     "Florida Climate Expertise & Humidity-Resistant Solutions",
     "All Paint Types & Custom Color Matching",
-    "Licensed, Insured & Guaranteed Work",
   ];
 
   const paintingProcessData: ProcessStep[] = [
@@ -40,7 +39,7 @@ const InteriorTemplate = () => {
       label: "What I do differently",
       items: [
         "Hand-inspect and repair every surface imperfection",
-        "Professional wood filler for seamless hole repairs", 
+        "Professional wood filler for seamless hole repairs",
         "Premium primer application for Florida's humidity",
         "Comprehensive caulking and sanding for smooth finish",
       ],
@@ -48,12 +47,12 @@ const InteriorTemplate = () => {
     {
       id: 2,
       title: "Expert Paint Application",
-      subtitle: "Where 10+ years of experience shows",
+      subtitle: "Where 7+ years of experience shows",
       label: "Professional techniques",
       items: [
         "Premium painter's tape for razor-sharp lines",
         "Multiple thin coats (never rushed thick applications)",
-        "Humidity-resistant paints for Florida climate", 
+        "Humidity-resistant paints for Florida climate",
         "Commercial-grade tools and brushes",
       ],
     },
@@ -89,12 +88,12 @@ const InteriorTemplate = () => {
             Every quote includes high-quality paint, professional labor, surface
             preparation, and cleanup. Call{" "}
             <a
-              href="tel:7272564467"
+              href="tel:7276145087"
               className="text-blue-600 font-medium hover:text-blue-700 transition-colors"
             >
-              (727) 256-4467
+              (727) 614-5087
             </a>{" "}
-            for your free estimate today!
+            for your estimate today!
           </p>
         </div>
       ),
@@ -106,7 +105,7 @@ const InteriorTemplate = () => {
         "Most interior painting projects are completed within 3-7 days. A single room typically takes 1-2 days, while a full 3-bedroom home usually requires 4-6 days. Larger homes or projects requiring extensive prep work may take up to 10 days. We work efficiently while maintaining our high-quality standards, and we'll provide you with a detailed timeline during your consultation.",
     },
     {
-      id: "florida-paint", 
+      id: "florida-paint",
       question: "WHAT TYPE OF PAINT DO YOU USE FOR FLORIDA'S HUMID CLIMATE?",
       answer:
         "We use premium, humidity-resistant paints specifically designed for Florida's climate. Our go-to brands include Sherwin-Williams ProClassic and Benjamin Moore Advance - both offer excellent moisture resistance, mold/mildew protection, and superior durability. We typically use semi-gloss or satin finishes in bathrooms and kitchens for maximum humidity protection, while eggshell finishes work beautifully in living areas.",
@@ -132,7 +131,7 @@ const InteriorTemplate = () => {
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
-              Free color consultation and paint selection assistance
+              Color consultation and paint selection assistance
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
@@ -163,7 +162,9 @@ const InteriorTemplate = () => {
               Final walkthrough and touch-ups
             </li>
           </ul>
-          <p className="text-sm font-medium mt-4">Everything you need for a beautiful, long-lasting paint job!</p>
+          <p className="text-sm font-medium mt-4">
+            Everything you need for a beautiful, long-lasting paint job!
+          </p>
         </div>
       ),
     },
@@ -173,7 +174,7 @@ const InteriorTemplate = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Carousel */}
       <CarouselSlider slides={heroSlides} />
-      
+
       {/* Hero Content Section */}
       <section className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
         <div className="text-center space-y-6">
@@ -181,26 +182,32 @@ const InteriorTemplate = () => {
             Professional Interior Painting Services
             <span className="text-blue-600 block mt-2">Tampa Bay</span>
           </h1>
-          
+
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Expert Interior Painting Contractor Serving Tampa, St. Petersburg, Clearwater & Pinellas Park
+            Expert Interior Painting Contractor Serving Tampa, St. Petersburg,
+            Clearwater & Pinellas Park
           </p>
-          
+
           <div className="pt-8">
             <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto">
-              Looking for a skilled interior painting contractor in Tampa Bay? I'm a licensed professional painter with over 10 years of experience transforming homes throughout Tampa, St. Petersburg, Clearwater, and Pinellas Park. My journey began in commercial painting, where I mastered the precision required for large-scale projects. Today, I bring that same professional-grade expertise to your home.
+              Looking for a skilled interior painting contractor in Tampa Bay?
+              I'm a professional painter with nearly a decade of experience
+              transforming homes throughout Tampa, St. Petersburg, Clearwater,
+              and Pinellas Park. My journey began in commercial painting, where
+              I mastered the precision required for large-scale projects. Today,
+              I bring that same professional-grade expertise to your home.
             </p>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
-            <Button 
+            <Button
               size="xl"
               variant={"outline"}
               className="border border-blue-500 text-blue-500 px-8 py-3 rounded-full font-medium transition-colors duration-200"
             >
-              Get Free Estimate
+              Get A Estimate
             </Button>
-            <PhoneCallButton className="rounded-full"/>
+            <PhoneCallButton className="rounded-full" />
           </div>
         </div>
       </section>
@@ -273,7 +280,7 @@ const InteriorTemplate = () => {
       {/* FAQ Section */}
       <section className="bg-gray-50 py-16 lg:py-24">
         <div className="max-w-4xl mx-auto px-6">
-          <FAQ 
+          <FAQ
             questions={faqData}
             title="Frequently Asked Interior Painting Questions"
             subtitle="Have questions before booking your next project? Here's what Tampa homeowners ask us most about interior painting."

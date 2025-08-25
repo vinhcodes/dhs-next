@@ -95,13 +95,13 @@ export default function FAQ({
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="tel:7272564467"
+            href="tel:7276145087"
             className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Call (727) 256-4467
+            Call (727) 614-5087
           </a>
           <button className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
-            Get Free Estimate
+            Get Estimate
           </button>
         </div>
       </div>

@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from 'react'
 import { CheckIcon } from 'lucide-react'
 
 const links = [
-  { label: 'gutters cleaning', href: '/gutters-cleaning' },
-  { label: 'window washing', href: '/window-washing' },
-  { label: 'pressure washing', href: '/pressure-washing' },
+  { label: 'pool painting', href: '/pool-painting' },
+  { label: 'fence painting', href: '/fence-painting' },
+  { label: 'garage floor painting', href: '/garage-floor-painting' },
   { label: 'cabinet makeover', href: '/cabinet-makeover' },
 ]
 

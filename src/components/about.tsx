@@ -19,7 +19,7 @@ const AboutSection: React.FC = () => {
               {/* Overlay Badge */}
               <div className="absolute top-6 left-6 bg-blue-600 text-white rounded-xl px-6 py-4 shadow-lg">
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold">10+</div>
+                  <div className="text-2xl md:text-3xl font-bold">7+</div>
                   <div className="text-sm md:text-base font-medium">
                     Years In The
                   </div>
@@ -44,9 +44,9 @@ const AboutSection: React.FC = () => {
             {/* Content Paragraphs */}
             <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
               <p>
-                Hi, I'm Eugene — a professional painter with over 10 years of
-                experience working on both residential and commercial projects
-                across Florida.
+                Hi, I'm Eugene — a professional painter with nearly a decade of
+                experience in residential and commercial projects across
+                Florida.
               </p>
               <p>
                 Originally from Belarus, I was a professional soccer player
@@ -60,17 +60,15 @@ const AboutSection: React.FC = () => {
                 From family homes to commercial spaces like AutoZone, I bring
                 the same care, precision, and attention to detail to every
                 project. I understand the demands of Florida's climate and use
-                the right materials to ensure long-lasting results.
+                the right materials to ensure best results.
               </p>
-              <p>
-                Let's make your space look its best — and built to last.
-              </p>
+              <p>Let's make your space look its best — and built to last.</p>
             </div>
 
             {/* Call to Action Button */}
             <div className="pt-4">
               <button className="group bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-xl transition-all duration-200 flex items-center gap-3 hover:shadow-lg">
-                <span>Get a Free Quote</span>
+                <span>Get a Quote</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </button>
             </div>

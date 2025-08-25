@@ -198,11 +198,11 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div className="hidden lg:flex items-center space-x-4">
             {/* Phone CTA Button */}
             <Button
-              onClick={handleLogoClick}
+              onClick={() => phone?.number && (window.location.href = `tel:${phone.number}`)}
               className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2"
             >
               <PhoneIcon className="w-4 h-4" />
-              {logo?.text || "Call Now"}
+              {phone?.number ? `(${phone.number.slice(0,3)}) ${phone.number.slice(3,6)}-${phone.number.slice(6)}` : "Call Now"}
             </Button>
             
             {phone?.display && phone.number && (
@@ -271,11 +271,11 @@ export const Navigation: React.FC<NavigationProps> = ({
                   {/* Mobile CTA */}
                   <div className="pt-6 border-t border-gray-200">
                     <button
-                      onClick={handleLogoClick}
+                      onClick={() => phone?.number && (window.location.href = `tel:${phone.number}`)}
                       className="flex items-center gap-2 w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
                     >
                       <PhoneIcon className="w-4 h-4" />
-                      {logo?.text || "Call Now"}
+                      {phone?.number ? `(${phone.number.slice(0,3)}) ${phone.number.slice(3,6)}-${phone.number.slice(6)}` : "Call Now"}
                     </button>
                   </div>
 

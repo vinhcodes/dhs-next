@@ -1,4 +1,3 @@
-
 const ReviewSection: React.FC = () => {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-4 md:py-11 ">
@@ -10,10 +9,9 @@ const ReviewSection: React.FC = () => {
           TOP RATED PAINTING SERVICES IN TAMPA FL
         </h2>
         <p className="text-gray-600 text-sm md:text-lg max-w-4xl mx-auto leading-relaxed px-2">
-          We take pride in being one of the most trusted house painters Tampa FL
-          homeowners turn to for reliable, high-quality results. With hundreds
-          of five-star reviews, it's clear why Peach Painting stands out among
-          house painters in Tampa FL.
+          We’re a local painting team that cares about the details. Our goal is
+          simple — make your home look its best and finish on time, so the
+          process feels easy and stress-free.
         </p>
       </div>
     </div>

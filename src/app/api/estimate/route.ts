@@ -13,10 +13,13 @@ const estimateSchema = z.object({
     'interior-painting',
     'exterior-painting', 
     'cabinet-makeover',
-    'gutters-cleaning',
-    'window-washing',
-    'pressure-washing',
-  ])
+    'pool-painting',
+    'fence-painting',
+    'garage-floor-painting',
+  ]),
+  address: z.string().optional(),
+  photos: z.any().optional(),
+  squareFootage: z.string().optional()
 })
 
 type EstimateData = z.infer<typeof estimateSchema>
@@ -143,7 +146,7 @@ function getCustomerEmailTemplate(data: EstimateData): string {
         </div>
         <div class="content">
           <p>Dear ${data.firstName},</p>
-          <p>Thank you for requesting a free estimate from DHS Services! We've received your information and our team will contact you within 24 hours to schedule your consultation.</p>
+          <p>Thank you for requesting a estimate from DHS Services! We've received your information and our team will contact you within 24 hours to schedule your consultation.</p>
           
           <div class="info-box">
             <h3>Your Request Details:</h3>
@@ -284,9 +287,9 @@ export async function GET() {
       'interior-painting',
       'exterior-painting', 
       'cabinet-makeover',
-      'gutters-cleaning',
-      'window-washing',
-      'pressure-washing'
+      'pool-painting',
+      'fence-painting',
+      'garage-floor-painting'
     ]
   })
 }
