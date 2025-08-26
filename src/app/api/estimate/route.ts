@@ -8,7 +8,7 @@ const estimateSchema = z.object({
   firstName: z.string().min(1, 'First name is required').max(50),
   lastName: z.string().min(1, 'Last name is required').max(50),
   email: z.string().email('Invalid email address'),
-  phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, 'Invalid phone number'),
+  phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, { message: 'Invalid phone number' }),
   service: z.enum([
     'interior-painting',
     'exterior-painting', 
@@ -154,6 +154,9 @@ function getCustomerEmailTemplate(data: EstimateData): string {
               <li><strong>Service:</strong> ${serviceName}</li>
               <li><strong>Email:</strong> ${data.email}</li>
               <li><strong>Phone:</strong> ${data.phone}</li>
+              ${data.address ? `<li><strong>Address:</strong> ${data.address}</li>` : ''}
+              ${data.squareFootage ? `<li><strong>Square Footage:</strong> ${data.squareFootage}</li>` : ''}
+              ${data.photos ? `<li><strong>Photos:</strong> Included with request</li>` : ''}
             </ul>
           </div>
           
@@ -173,7 +176,7 @@ function getCustomerEmailTemplate(data: EstimateData): string {
 }
 
 // Business notification email template
-function getBusinessEmailTemplate(data: EstimateData): string {
+function getBusinessEmailTemplate(data: EstimateData, photoAttachments: Array<{cid: string, filename: string}>): string {
   const serviceName = data.service.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())
   
   return `
@@ -255,12 +258,29 @@ function getBusinessEmailTemplate(data: EstimateData): string {
           <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
           <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
           <p><strong>Phone:</strong> <a href="tel:${data.phone}">${data.phone}</a></p>
+          ${data.address ? `<p><strong>Address:</strong> ${data.address}</p>` : ''}
         </div>
 
         <div class="info">
           <h3>🏠 Service Requested</h3>
           <p><strong>${serviceName}</strong></p>
+          ${data.squareFootage ? `<p><strong>Square Footage:</strong> ${data.squareFootage}</p>` : ''}
+          ${data.photos ? `<p><strong>📷 Photos:</strong> Customer has uploaded ${photoAttachments.length} photos</p>` : ''}
         </div>
+
+        ${photoAttachments.length > 0 ? `
+        <div class="info">
+          <h3>📸 Customer Photos</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 15px 0;">
+            ${photoAttachments.map(photo => `
+              <div style="text-align: center;">
+                <img src="cid:${photo.cid}" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" alt="${photo.filename}">
+                <p style="font-size: 12px; color: #666; margin: 5px 0 0 0;">${photo.filename}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        ` : ''}
 
         <div class="contact-info">
           <h3>📋 Next Steps</h3>
@@ -312,8 +332,52 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Parse and validate request body
-    const body = await request.json()
+    // Handle both JSON and FormData
+    let body: any
+    let photoAttachments: Array<{
+      filename: string;
+      content: Buffer;
+      contentType: string;
+      cid: string;
+    }> = []
+    
+    const contentType = request.headers.get('content-type')
+    
+    if (contentType?.includes('multipart/form-data')) {
+      // Handle FormData with files
+      const formData = await request.formData()
+      body = {}
+      
+      // Extract form fields and process photos
+      for (const [key, value] of formData.entries()) {
+        if (key === 'photos' && value instanceof File) {
+          // Process image file
+          const arrayBuffer = await value.arrayBuffer()
+          const buffer = Buffer.from(arrayBuffer)
+          
+          // Create unique content ID for embedding
+          const cid = `photo_${photoAttachments.length + 1}_${Date.now()}`
+          
+          photoAttachments.push({
+            filename: value.name,
+            content: buffer,
+            contentType: value.type,
+            cid: cid
+          })
+        } else if (key !== 'photos') {
+          body[key] = value
+        }
+      }
+      
+      // Set photos indicator for validation
+      if (photoAttachments.length > 0) {
+        body.photos = photoAttachments.length
+      }
+    } else {
+      // Handle regular JSON
+      body = await request.json()
+    }
+    
     const validatedData = estimateSchema.parse(body)
 
     // Create email transporter
@@ -348,14 +412,20 @@ export async function POST(request: NextRequest) {
         address: process.env.EMAIL_USER!,
       },
       to: businessEmail,
-      subject: `🚨 New Estimate Request - ${validatedData.service}`,
-      html: getBusinessEmailTemplate(validatedData),
+      subject: `🚨 New Estimate Request - ${validatedData.service}${photoAttachments.length > 0 ? ` (${photoAttachments.length} photos)` : ''}`,
+      html: getBusinessEmailTemplate(validatedData, photoAttachments.map(p => ({cid: p.cid, filename: p.filename}))),
       priority: 'high',
       headers: {
         'X-Priority': '1',
         'X-MSMail-Priority': 'High',
         'Importance': 'high',
       },
+      attachments: photoAttachments.map(photo => ({
+        filename: photo.filename,
+        content: photo.content,
+        contentType: photo.contentType,
+        cid: photo.cid
+      }))
     })
 
     // Log successful submission

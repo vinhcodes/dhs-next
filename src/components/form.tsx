@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Send, User, Mail, Phone, Paintbrush, AlertCircle, CheckCircle2, MapPin, Upload, X, Square } from 'lucide-react';
+import { Send, User, Mail, Phone, Paintbrush, AlertCircle, CheckCircle2, MapPin, Upload, X, Square, XCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import GooglePlacesAutocomplete from '@/components/ui/google-places-autocomplete';
 
 // Zod-like validation (simplified for artifact environment)
 const validateForm = (data: FormData) => {
@@ -65,6 +66,7 @@ const EstimateForm: React.FC = () => {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [showPopup, setShowPopup] = useState(false);
 
   const services = [
     { value: '', label: 'Select a Service' },
@@ -113,6 +115,13 @@ const EstimateForm: React.FC = () => {
         photos: files
       }));
     }
+  };
+
+  const handleAddressChange = (address: string) => {
+    setFormData(prev => ({
+      ...prev,
+      address: address
+    }));
   };
 
   const removeFile = (index: number) => {
@@ -165,13 +174,34 @@ const EstimateForm: React.FC = () => {
     setErrors({});
 
     try {
+      // Create FormData to handle file uploads
+      const submitData = new FormData();
+      
+      // Add text fields
+      submitData.append('firstName', formData.firstName);
+      submitData.append('lastName', formData.lastName);
+      submitData.append('email', formData.email);
+      submitData.append('phone', formData.phone);
+      submitData.append('service', formData.service);
+      
+      // Add optional fields if they exist
+      if (formData.address) {
+        submitData.append('address', formData.address);
+      }
+      
+      if (formData.squareFootage) {
+        submitData.append('squareFootage', formData.squareFootage);
+      }
+      
+      // Add uploaded files
+      uploadedFiles.forEach((file) => {
+        submitData.append('photos', file);
+      });
+
       // Send to your API endpoint
       const response = await fetch('/api/estimate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: submitData, // No Content-Type header needed for FormData
       });
 
       if (!response.ok) {
@@ -180,8 +210,9 @@ const EstimateForm: React.FC = () => {
 
       const result = await response.json();
       
-      // Success
+      // Success - reset form and show popup
       setSubmitStatus('success');
+      setShowPopup(true);
       setFormData({
         firstName: '',
         lastName: '',
@@ -192,54 +223,142 @@ const EstimateForm: React.FC = () => {
         photos: null,
         squareFootage: ''
       });
+      setUploadedFiles([]); // Clear uploaded files
 
     } catch (error) {
       console.error('Form submission error:', error);
       setSubmitStatus('error');
+      setShowPopup(true);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  return (
-    <section className="w-full py-16 lg:py-24 bg-gray-50">
-      <div className="max-w-3xl mx-auto px-6">
+  const closePopup = () => {
+    setShowPopup(false);
+    setSubmitStatus('idle');
+  };
+
+  // Popup Modal Component
+  const PopupModal = ({ show, status, onClose }: { show: boolean, status: 'success' | 'error', onClose: () => void }) => {
+    if (!show) return null;
+
+    const isSuccess = status === 'success';
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+          onClick={onClose}
+        />
         
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="text-blue-600 font-semibold text-sm tracking-wider uppercase mb-4">
-            Get Your Estimate
+        {/* Modal */}
+        <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 transform transition-all">
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Content */}
+          <div className="text-center">
+            {/* Icon */}
+            <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
+              isSuccess 
+                ? 'bg-green-100 text-green-600' 
+                : 'bg-red-100 text-red-600'
+            }`}>
+              {isSuccess ? (
+                <CheckCircle2 className="w-8 h-8" />
+              ) : (
+                <XCircle className="w-8 h-8" />
+              )}
+            </div>
+
+            {/* Title */}
+            <h3 className={`text-xl font-bold mb-2 ${
+              isSuccess ? 'text-green-900' : 'text-red-900'
+            }`}>
+              {isSuccess ? 'Request Submitted!' : 'Submission Failed'}
+            </h3>
+
+            {/* Message */}
+            <p className={`text-sm mb-6 leading-relaxed ${
+              isSuccess ? 'text-green-700' : 'text-red-700'
+            }`}>
+              {isSuccess ? (
+                <>
+                  Thank you for your estimate request! We've received your information and will contact you within 24 hours to schedule your consultation.
+                  <br /><br />
+                  <strong>Check your email</strong> for a confirmation message.
+                </>
+              ) : (
+                <>
+                  We're sorry, but there was an error submitting your request. Please try again or contact us directly.
+                  <br /><br />
+                  <strong>Call us at (727) 614-5087</strong> for immediate assistance.
+                </>
+              )}
+            </p>
+
+            {/* Action Button */}
+            <button
+              onClick={onClose}
+              className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-200 ${
+                isSuccess 
+                  ? 'bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl' 
+                  : 'bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl'
+              }`}
+            >
+              {isSuccess ? 'Great, Thanks!' : 'Try Again'}
+            </button>
+
+            {/* Additional Action for Error */}
+            {!isSuccess && (
+              <a
+                href="tel:7276145087"
+                className="block mt-3 py-2 px-4 text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              >
+                Or Call Us Now: (727) 614-5087
+              </a>
+            )}
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-            Ready to Transform Your Space?
-          </h2>
-          <div className="w-16 h-1 bg-blue-600 mx-auto mb-6"></div>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            Get a quick, no-obligation estimate from us. We'll provide you with a detailed quote within 24 hours.
-          </p>
         </div>
+      </div>
+    );
+  };
 
-        {/* Form */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-10">
+  return (
+    <>
+      {/* Popup Modal */}
+      <PopupModal 
+        show={showPopup} 
+        status={submitStatus as 'success' | 'error'} 
+        onClose={closePopup} 
+      />
+
+      <section className="w-full py-16 lg:py-24 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-6">
           
-          {/* Status Messages */}
-          {submitStatus === 'success' && (
-            <Alert className="mb-8 border-green-200 bg-green-50">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
-              <AlertDescription className="text-green-800 font-medium">
-                Thank you! Your estimate request has been submitted successfully. We'll contact you within 24 hours.
-              </AlertDescription>
-            </Alert>
-          )}
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="text-blue-600 font-semibold text-sm tracking-wider uppercase mb-4">
+              Get Your Estimate
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              Ready to Transform Your Space?
+            </h2>
+            <div className="w-16 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+              Get a quick, no-obligation estimate from us. We'll provide you with a detailed quote within 24 hours.
+            </p>
+          </div>
 
-          {submitStatus === 'error' && (
-            <Alert className="mb-8 border-red-200 bg-red-50">
-              <AlertCircle className="h-5 w-5 text-red-600" />
-              <AlertDescription className="text-red-800 font-medium">
-                Sorry, there was an error submitting your request. Please try again or call us at (727) 614-5087.
-              </AlertDescription>
-            </Alert>
-          )}
+          {/* Form */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-10">
 
           <div className="space-y-6">
             
@@ -434,24 +553,20 @@ const EstimateForm: React.FC = () => {
               </div>
             )}
 
-            {/* Address Field (Optional) */}
+            {/* Address Field (Optional) - Google Places Autocomplete */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-900">
                 Project Address <span className="text-gray-500 font-normal">(Optional)</span>
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <MapPin className="h-4 w-4 text-gray-400" />
-                </div>
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address || ''}
-                  onChange={handleInputChange}
-                  className="w-full h-12 pl-12 pr-4 text-sm border rounded-xl bg-gray-50 focus:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-200 hover:border-gray-300"
-                  placeholder="Enter project address (helps with accurate estimates)"
-                />
-              </div>
+              <GooglePlacesAutocomplete
+                value={formData.address || ''}
+                onChange={handleAddressChange}
+                placeholder="Start typing your address for suggestions..."
+                className="w-full h-12 pl-12 pr-4 text-sm border rounded-xl bg-gray-50 focus:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-gray-200 hover:border-gray-300"
+              />
+              <p className="text-xs text-gray-500">
+                Start typing to see address suggestions. This helps us provide more accurate estimates and scheduling.
+              </p>
             </div>
 
             {/* Photo Upload (Optional) */}
@@ -551,6 +666,7 @@ const EstimateForm: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

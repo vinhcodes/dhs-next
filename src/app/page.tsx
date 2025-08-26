@@ -9,6 +9,7 @@ import CarouselSlider from "@/components/ui/carousel";
 import { GalleryCarousel } from "@/components/ui/gallery-carousel";
 import InfiniteLinkCarousel from "@/components/ui/infinite-carousel";
 import ReviewCarousel from "@/components/ui/review-carousel";
+import { motion, Variants } from "framer-motion";
 
 const heroSlides = [
   {
@@ -53,24 +54,112 @@ const heroSlides = [
   },
 ];
 
+// Animation variants
+const fadeInUp: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 60
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const fadeInLeft: Variants = {
+  hidden: {
+    opacity: 0,
+    x: -60
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut"
+    }
+  }
+};
+
+const fadeInRight: Variants = {
+  hidden: {
+    opacity: 0,
+    x: 60
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut"
+    }
+  }
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3
+    }
+  }
+};
+
+const scaleIn: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.8
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Carousel */}
-      <CarouselSlider slides={heroSlides} />
+      <div>
+        <CarouselSlider slides={heroSlides} />
+      </div>
 
       {/* Reviews Section */}
-      <section className="bg-white py-16 lg:py-24">
-        <ReviewSection />
-        <div className="mt-16">
+      <motion.section 
+        className="bg-white py-8"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={staggerContainer}
+      >
+        <motion.div variants={fadeInUp}>
+          <ReviewSection />
+        </motion.div>
+        <motion.div className="mt-16" variants={fadeInUp}>
           <ReviewCarousel />
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* About Section */}
-      <section className="bg-gray-50 pt-16 lg:pt-24">
+      <motion.section 
+        className="bg-gray-50 pt-16 lg:pt-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeInLeft}
+      >
         <AboutSection />
-      </section>
+      </motion.section>
 
       {/* Infinite Carousel */}
       <section className="bg-white">
@@ -78,17 +167,35 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="bg-gray-50">
+      <motion.section 
+        className="bg-gray-50"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeInRight}
+      >
         <GalleryCarousel />
-      </section>
+      </motion.section>
 
       {/* Why Choose Us Section */}
-      <section>
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={staggerContainer}
+      >
         <WhyChooseUsSection />
-      </section>
+      </motion.section>
 
       {/* Contact Form */}
-      <EstimateForm />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeInUp}
+      >
+        <EstimateForm />
+      </motion.div>
     </div>
   );
 }

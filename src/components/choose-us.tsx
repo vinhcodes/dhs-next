@@ -38,8 +38,112 @@ const WhyChooseUsSection: React.FC = () => {
   ];
 
   return (
-    <section className="w-full py-16 lg:py-24 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="w-full py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
+      {/* Background Wave Shapes */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Large blue wave on the left */}
+        <svg
+          className="absolute -left-32 top-0 w-[500px] h-full"
+          viewBox="0 0 500 800"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 100C50 80 100 90 150 120C200 150 250 200 280 260C310 320 320 380 300 440C280 500 240 550 200 580C160 610 120 620 80 640C40 660 20 690 10 720C5 740 8 760 15 780C25 795 40 800 60 800C100 800 150 790 200 780C250 770 300 760 350 750C400 740 450 730 500 720L500 0C400 20 300 40 200 60C150 70 100 80 50 90C25 95 12.5 97.5 0 100Z"
+            fill="url(#gradient1)"
+            opacity="0.12"
+          />
+          <defs>
+            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#2563eb', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Medium blue wave on the right */}
+        <svg
+          className="absolute -right-24 top-16 w-[400px] h-[600px]"
+          viewBox="0 0 400 600"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M400 50C380 70 360 90 330 120C300 150 260 190 240 240C220 290 230 340 250 380C270 420 300 450 330 470C360 490 390 500 400 510C400 520 395 530 385 540C370 555 350 565 325 570C300 575 270 575 240 570C210 565 180 555 160 540C140 525 130 505 135 485C140 465 160 445 185 430C210 415 240 405 270 400C300 395 330 395 360 400C380 403 395 407 400 410L400 50Z"
+            fill="url(#gradient2)"
+            opacity="0.1"
+          />
+          <defs>
+            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#93c5fd', stopOpacity: 1 }} />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Small organic blob in the center */}
+        <svg
+          className="absolute left-1/3 top-1/4 w-80 h-80 transform -translate-x-1/2"
+          viewBox="0 0 300 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M150 50C190 60 220 90 240 130C260 170 270 220 250 260C230 300 190 320 150 310C110 300 80 270 60 230C40 190 50 140 80 110C110 80 130 70 150 50Z"
+            fill="url(#gradient3)"
+            opacity="0.06"
+          />
+          <defs>
+            <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#1e40af', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Flowing bottom wave */}
+        <svg
+          className="absolute left-0 bottom-0 w-full h-40"
+          viewBox="0 0 1200 160"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 160C50 150 100 140 150 130C250 115 350 105 450 110C550 115 650 135 750 140C850 145 950 135 1050 125C1100 120 1150 115 1200 110L1200 160L0 160Z"
+            fill="url(#gradient4)"
+            opacity="0.08"
+          />
+          <defs>
+            <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style={{ stopColor: '#1d4ed8', stopOpacity: 1 }} />
+              <stop offset="50%" style={{ stopColor: '#2563eb', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Additional organic shape on top right */}
+        <svg
+          className="absolute right-0 top-0 w-72 h-72"
+          viewBox="0 0 300 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M300 0C280 20 260 45 245 75C230 105 220 140 225 175C230 210 250 240 275 260C290 275 300 285 300 300L300 0Z"
+            fill="url(#gradient5)"
+            opacity="0.05"
+          />
+          <defs>
+            <linearGradient id="gradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#3b82f6', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#60a5fa', stopOpacity: 1 }} />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         
         {/* Header Section */}
         <div className="text-center mb-16">
