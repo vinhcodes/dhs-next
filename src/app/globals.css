@@ -119,4 +119,23 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Prevent mobile input zoom to fix icon clash */
+  input[type="text"],
+  input[type="email"], 
+  input[type="tel"],
+  input[type="number"],
+  select {
+    font-size: 16px;
+  }
+  
+  /* Ensure proper icon positioning on mobile */
+  @media (max-width: 768px) {
+    .relative input {
+      padding-left: 3rem !important;
+    }
+    .absolute.inset-y-0.left-0 {
+      padding-left: 1rem !important;
+    }
+  }
 }

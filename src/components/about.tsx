@@ -1,7 +1,31 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const AboutSection: React.FC = () => {
+  const slideUpVariants = {
+    hidden: { y: 60, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { 
+        duration: 0.6, 
+        ease: [0.22, 1, 0.36, 1]
+      }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
   return (
     <section className="w-full bg-white py-16 lg:py-24 relative overflow-hidden">
       {/* Background Organic Shapes */}
@@ -90,7 +114,13 @@ const AboutSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Side - Image with Badge */}
-          <div className="relative">
+          <motion.div 
+            className="relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={slideUpVariants}
+          >
             <div className="relative rounded-2xl overflow-hidden shadow-lg">
               {/* Main Image */}
               <img
@@ -110,22 +140,37 @@ const AboutSection: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Side - Content */}
-          <div className="space-y-6">
+          <motion.div 
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={staggerContainer}
+          >
             {/* Header Badge */}
-            <div className="text-blue-600 font-semibold text-sm tracking-wider uppercase">
+            <motion.div 
+              className="text-blue-600 font-semibold text-sm tracking-wider uppercase"
+              variants={slideUpVariants}
+            >
               Tampa's Trusted Professional
-            </div>
+            </motion.div>
 
             {/* Main Heading */}
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <motion.h2 
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
+              variants={slideUpVariants}
+            >
               From World-Class Soccer to World-Class Painting
-            </h2>
+            </motion.h2>
 
             {/* Content Paragraphs */}
-            <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
+            <motion.div 
+              className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed"
+              variants={slideUpVariants}
+            >
               <p>
                 Hi, I'm Eugene — a professional painter with nearly a decade of
                 experience in residential and commercial projects across
@@ -146,16 +191,19 @@ const AboutSection: React.FC = () => {
                 the right materials to ensure best results.
               </p>
               <p>Let's make your space look its best — and built to last.</p>
-            </div>
+            </motion.div>
 
             {/* Call to Action Button */}
-            <div className="pt-4">
+            <motion.div 
+              className="pt-4"
+              variants={slideUpVariants}
+            >
               <button className="group bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-xl transition-all duration-200 flex items-center gap-3 hover:shadow-lg">
                 <span>Get a Quote</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
