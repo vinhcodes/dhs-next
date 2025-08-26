@@ -22,9 +22,7 @@ const heroSlides = [
     image: "/images/hero/1.png",
     cta: "Get A Quote",
     onCtaClick: () => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({ behavior: "smooth" });
+      window.location.href = "/exterior-painting";
     },
   },
   {
@@ -34,9 +32,9 @@ const heroSlides = [
     description:
       "From single rooms to whole house makeovers, we deliver flawless finishes that enhance your home's beauty and value.",
     image: "/images/hero/2.png",
-    cta: "View Portfolio",
+    cta: "View Details",
     onCtaClick: () => {
-      document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+      window.location.href = "/interior-painting";
     },
   },
   {
@@ -48,9 +46,7 @@ const heroSlides = [
     image: "/images/hero/3.png",
     cta: "Learn More",
     onCtaClick: () => {
-      document
-        .getElementById("services")
-        ?.scrollIntoView({ behavior: "smooth" });
+      window.location.href = "/cabinet-makeover";
     },
   },
 ];
