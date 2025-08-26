@@ -9,7 +9,7 @@ import CarouselSlider from "@/components/ui/carousel";
 import { GalleryCarousel } from "@/components/ui/gallery-carousel";
 import InfiniteLinkCarousel from "@/components/ui/infinite-carousel";
 import ReviewCarousel from "@/components/ui/review-carousel";
-import { motion, Variants } from "framer-motion";
+// import { motion, Variants } from "framer-motion"; // Disabled to prevent layout shifts
 
 const heroSlides = [
   {
@@ -54,77 +54,77 @@ const heroSlides = [
   },
 ];
 
-// Animation variants
-const fadeInUp: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 60
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut"
-    }
-  }
-};
+// Animation variants - DISABLED to prevent layout shifts
+// const fadeInUp: Variants = {
+//   hidden: {
+//     opacity: 0,
+//     y: 60
+//   },
+//   visible: {
+//     opacity: 1,
+//     y: 0,
+//     transition: {
+//       duration: 0.6,
+//       ease: "easeOut"
+//     }
+//   }
+// };
 
-const fadeInLeft: Variants = {
-  hidden: {
-    opacity: 0,
-    x: -60
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut"
-    }
-  }
-};
+// const fadeInLeft: Variants = {
+//   hidden: {
+//     opacity: 0,
+//     x: -60
+//   },
+//   visible: {
+//     opacity: 1,
+//     x: 0,
+//     transition: {
+//       duration: 0.8,
+//       ease: "easeOut"
+//     }
+//   }
+// };
 
-const fadeInRight: Variants = {
-  hidden: {
-    opacity: 0,
-    x: 60
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut"
-    }
-  }
-};
+// const fadeInRight: Variants = {
+//   hidden: {
+//     opacity: 0,
+//     x: 60
+//   },
+//   visible: {
+//     opacity: 1,
+//     x: 0,
+//     transition: {
+//       duration: 0.8,
+//       ease: "easeOut"
+//     }
+//   }
+// };
 
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
-    }
-  }
-};
+// const staggerContainer: Variants = {
+//   hidden: { opacity: 0 },
+//   visible: {
+//     opacity: 1,
+//     transition: {
+//       staggerChildren: 0.2,
+//       delayChildren: 0.3
+//     }
+//   }
+// };
 
-const scaleIn: Variants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.8
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-};
+// const scaleIn: Variants = {
+//   hidden: {
+//     opacity: 0,
+//     scale: 0.8
+//   },
+//   visible: {
+//     opacity: 1,
+//     scale: 1,
+//     transition: {
+//       duration: 0.5,
+//       ease: "easeOut"
+//     }
+//   }
+// };
 
 export default function Home() {
   return (
@@ -135,31 +135,19 @@ export default function Home() {
       </div>
 
       {/* Reviews Section */}
-      <motion.section 
-        className="bg-white py-8"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={staggerContainer}
-      >
-        <motion.div variants={fadeInUp}>
+      <section className="bg-white py-8">
+        <div>
           <ReviewSection />
-        </motion.div>
-        <motion.div className="mt-16" variants={fadeInUp}>
+        </div>
+        <div className="mt-16">
           <ReviewCarousel />
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
       {/* About Section */}
-      <motion.section 
-        className="bg-gray-50 pt-16 lg:pt-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeInLeft}
-      >
+      <section className="bg-gray-50 pt-16 lg:pt-24">
         <AboutSection />
-      </motion.section>
+      </section>
 
       {/* Infinite Carousel */}
       <section className="bg-white">
@@ -167,35 +155,19 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <motion.section 
-        className="bg-gray-50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInRight}
-      >
+      <section className="bg-gray-50">
         <GalleryCarousel />
-      </motion.section>
+      </section>
 
       {/* Why Choose Us Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={staggerContainer}
-      >
+      <section>
         <WhyChooseUsSection />
-      </motion.section>
+      </section>
 
       {/* Contact Form */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeInUp}
-      >
+      <div>
         <EstimateForm />
-      </motion.div>
+      </div>
     </div>
   );
 }
