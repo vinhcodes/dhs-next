@@ -20,7 +20,7 @@ const heroSlides = [
     description:
       "We use premium materials designed to hold up against Florida's harsh sun, humidity, and storms—so your home stays beautiful and protected for years to come.",
     image: "/images/hero/1.png",
-    cta: "Get A Quote",
+    cta: "View Details",
     onCtaClick: () => {
       window.location.href = "/exterior-painting";
     },
