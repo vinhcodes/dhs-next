@@ -60,6 +60,7 @@ export const Navigation: React.FC<NavigationProps> = ({
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   const getVariantClasses = () => {
@@ -69,7 +70,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       case "transparent":
         return "fixed top-0 w-full bg-transparent";
       default:
-        return "fixed top-0 w-full backdrop-blur-sm shadow-sm border-b border-gray-100";
+        return `${isScrolled ? 'fixed' : 'relative'} top-0 w-full transition-all duration-300 ${isScrolled ? 'backdrop-blur-sm shadow-sm border-b border-gray-100' : ''}`;
     }
   };
 
@@ -115,6 +116,17 @@ export const Navigation: React.FC<NavigationProps> = ({
     setActiveDropdown(null);
     setIsMenuOpen(false);
   };
+
+  // Handle scroll detection for sticky header
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50); // Becomes sticky after 50px scroll
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {

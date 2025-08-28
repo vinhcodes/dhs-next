@@ -61,7 +61,6 @@ function createTransporter() {
     throw new Error('Email configuration missing. Please set EMAIL_USER and EMAIL_APP_PASSWORD in your .env.local file')
   }
 
-  console.log('Using Gmail App Password for:', emailUser)
   
   return nodemailer.createTransport({
     service: 'gmail',
@@ -388,11 +387,6 @@ export async function POST(request: NextRequest) {
       throw new Error('BUSINESS_EMAIL not configured in .env.local file')
     }
 
-    console.log('Sending emails for estimate request:', {
-      customer: validatedData.email,
-      business: businessEmail,
-      service: validatedData.service
-    })
 
     // Send customer confirmation email
     await transporter.sendMail({
@@ -428,13 +422,6 @@ export async function POST(request: NextRequest) {
       }))
     })
 
-    // Log successful submission
-    console.log('✅ Estimate request processed successfully:', {
-      name: `${validatedData.firstName} ${validatedData.lastName}`,
-      service: validatedData.service,
-      timestamp: new Date().toISOString(),
-      ip: ip
-    })
 
     return NextResponse.json({
       success: true,
@@ -442,7 +429,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('❌ Estimate submission error:', error)
+    console.error('Estimate submission error:', error instanceof Error ? error.message : 'Unknown error')
 
     // Handle validation errors
     if (error instanceof z.ZodError) {
