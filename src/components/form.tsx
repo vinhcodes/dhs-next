@@ -102,8 +102,43 @@ const EstimateForm: React.FC = () => {
         file.type.startsWith('image/')
       );
       
-      // Limit to 5 files
-      const limitedFiles = imageFiles.slice(0, 5);
+      // Check file sizes and total size
+      const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB per file
+      const MAX_TOTAL_SIZE = 4 * 1024 * 1024; // 4MB total
+      
+      let validFiles: File[] = [];
+      let totalSize = 0;
+      let hasOversizedFile = false;
+      let oversizedFileName = '';
+      
+      for (const file of imageFiles) {
+        if (file.size > MAX_FILE_SIZE) {
+          hasOversizedFile = true;
+          oversizedFileName = file.name;
+          break;
+        }
+        
+        if (totalSize + file.size > MAX_TOTAL_SIZE) {
+          // Stop adding files if total would exceed limit
+          break;
+        }
+        
+        validFiles.push(file);
+        totalSize += file.size;
+      }
+      
+      // Show error if files are too large
+      if (hasOversizedFile) {
+        alert(`File "${oversizedFileName}" is too large. Please use images smaller than 2MB each.`);
+        return;
+      }
+      
+      // Limit to 5 files and warn if total size is approaching limit
+      const limitedFiles = validFiles.slice(0, 5);
+      
+      if (totalSize > MAX_TOTAL_SIZE * 0.8) { // Warn at 80% of limit
+        alert('Warning: Your images are approaching the 4MB total limit for uploads. Consider reducing image sizes if you experience issues.');
+      }
       
       setUploadedFiles(prev => {
         const newFiles = [...prev, ...limitedFiles].slice(0, 5);
@@ -591,7 +626,7 @@ const EstimateForm: React.FC = () => {
                     <Upload className="h-6 w-6 text-gray-400" />
                     <div className="text-center">
                       <p className="text-sm font-medium text-gray-600">Upload project photos</p>
-                      <p className="text-xs text-gray-500">PNG, JPG up to 10MB each (max 5 photos)</p>
+                      <p className="text-xs text-gray-500">PNG, JPG up to 2MB each (max 5 photos, 4MB total)</p>
                     </div>
                   </label>
                 </div>

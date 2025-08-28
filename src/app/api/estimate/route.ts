@@ -3,12 +3,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { z } from 'zod'
 
+// Configure API route for larger file uploads (but still within Vercel limits)
+export const maxDuration = 30 // 30 seconds timeout
+export const dynamic = 'force-dynamic'
+
 // Validation schema with YOUR services
 const estimateSchema = z.object({
   firstName: z.string().min(1, 'First name is required').max(50),
   lastName: z.string().min(1, 'Last name is required').max(50),
   email: z.string().email('Invalid email address'),
-  phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, { message: 'Invalid phone number' }),
+  phone: z.string().min(1, 'Phone number is required'),
   service: z.enum([
     'interior-painting',
     'exterior-painting', 
@@ -347,9 +351,37 @@ export async function POST(request: NextRequest) {
       const formData = await request.formData()
       body = {}
       
+      // Check total size of files to prevent 413 errors
+      let totalFileSize = 0
+      const MAX_TOTAL_SIZE = 4 * 1024 * 1024 // 4MB total limit for Vercel
+      
       // Extract form fields and process photos
       for (const [key, value] of formData.entries()) {
         if (key === 'photos' && value instanceof File) {
+          // Check individual file size
+          if (value.size > 2 * 1024 * 1024) { // 2MB per file
+            return NextResponse.json(
+              { 
+                error: 'File too large', 
+                message: 'Please reduce image size to under 2MB per file' 
+              },
+              { status: 413 }
+            )
+          }
+
+          totalFileSize += value.size
+
+          // Check total size
+          if (totalFileSize > MAX_TOTAL_SIZE) {
+            return NextResponse.json(
+              { 
+                error: 'Total file size too large', 
+                message: 'Please reduce total image size to under 4MB' 
+              },
+              { status: 413 }
+            )
+          }
+          
           // Process image file
           const arrayBuffer = await value.arrayBuffer()
           const buffer = Buffer.from(arrayBuffer)
@@ -387,7 +419,6 @@ export async function POST(request: NextRequest) {
       throw new Error('BUSINESS_EMAIL not configured in .env.local file')
     }
 
-
     // Send customer confirmation email
     await transporter.sendMail({
       from: {
@@ -421,7 +452,6 @@ export async function POST(request: NextRequest) {
         cid: photo.cid
       }))
     })
-
 
     return NextResponse.json({
       success: true,
