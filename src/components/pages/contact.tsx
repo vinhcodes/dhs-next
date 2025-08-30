@@ -59,8 +59,8 @@ const ContactTemplate: React.FC = () => {
   const whyChooseUs = [
     {
       icon: <Users className="w-5 h-5 text-blue-600" />,
-      title: "Local Family Business",
-      description: "Tampa Bay owned and operated with deep community roots"
+      title: "Reliable business",
+      description: "We make sure the results and preparation are top quality"
     },
     {
       icon: <Star className="w-5 h-5 text-blue-600" />,
