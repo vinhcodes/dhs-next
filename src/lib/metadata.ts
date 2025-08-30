@@ -12,7 +12,7 @@ export const siteConfig = {
   },
   contact: {
     phone: '(727) 614-5087',
-    email: 'info@diversehomesolution.com',
+    email: 'dhsolus@gmail.com',
     address: 'Tampa Bay, FL',
   },
   services: [

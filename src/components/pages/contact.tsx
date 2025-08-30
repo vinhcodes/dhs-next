@@ -18,9 +18,9 @@ const ContactTemplate: React.FC = () => {
     {
       icon: <Mail className="w-6 h-6 text-white" />,
       title: "Email Us",
-      content: "info@dhsservices.com", 
+      content: "dhsolus@gmail.com", 
       description: "Quick response guaranteed",
-      href: "mailto:info@dhsservices.com"
+      href: "mailto:dhsolus@gmail.com"
     },
     {
       icon: <MapPin className="w-6 h-6 text-white" />,
