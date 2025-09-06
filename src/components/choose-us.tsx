@@ -1,6 +1,7 @@
-import React from 'react';
-import { ArrowRight, Phone, Users, Award, Paintbrush, Shield } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, Phone, Users, Award, Paintbrush, Shield, Play } from 'lucide-react';
 import Link from 'next/link';
+import VideoDialog from '@/components/ui/video-dialog';
 
 interface Feature {
   id: number;
@@ -10,6 +11,8 @@ interface Feature {
 }
 
 const WhyChooseUsSection: React.FC = () => {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
   const features: Feature[] = [
     {
       id: 1,
@@ -163,14 +166,30 @@ const WhyChooseUsSection: React.FC = () => {
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           
-          {/* Left Side - Image */}
+          {/* Left Side - Video Thumbnail */}
           <div className="order-2 lg:order-1">
-            <div className="relative rounded-2xl overflow-hidden shadow-lg">
+            <div 
+              className="relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group"
+              onClick={() => setIsVideoOpen(true)}
+            >
               <img
-                src="/images/choose/1.png"
-                alt="Diverse Home Solution Painter painting a frame"
-                className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
+                src="/videos/dhs-intro-thumb.png"
+                alt="Click to watch our painting process video"
+                className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover transition-transform duration-300 group-hover:scale-105"
               />
+              
+              {/* Video Play Overlay */}
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                  <Play className="w-8 h-8 text-blue-600 ml-1" />
+                </div>
+              </div>
+              
+              {/* "Watch Video" Badge */}
+              <div className="absolute top-4 left-4 bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 shadow-lg">
+                <Play className="w-4 h-4" />
+                <span className="text-sm font-medium">Watch Video</span>
+              </div>
             </div>
           </div>
 
@@ -215,6 +234,15 @@ const WhyChooseUsSection: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Video Dialog */}
+      <VideoDialog
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoSrc="/videos/dhs-intro-video.mp4"
+        title="Our Professional Painting Process"
+        poster="/videos/dhs-intro-thumb.png"
+      />
     </section>
   );
 };

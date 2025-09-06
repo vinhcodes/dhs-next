@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const AboutSection: React.FC = () => {
   const slideUpVariants = {
@@ -198,10 +199,13 @@ const AboutSection: React.FC = () => {
               className="pt-4"
               variants={slideUpVariants}
             >
-              <button className="group bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-xl transition-all duration-200 flex items-center gap-3 hover:shadow-lg">
-                <span>Get a Quote</span>
+              <Link 
+                href="/gallery"
+                className="group bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-xl transition-all duration-200 flex items-center gap-3 hover:shadow-lg inline-flex"
+              >
+                <span>View Gallery</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-              </button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

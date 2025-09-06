@@ -17,6 +17,7 @@ const navItems = [
       { label: "Garage Floor Painting", href: "/garage-floor-painting" }
     ]
   },
+  { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" }
 ];
 
