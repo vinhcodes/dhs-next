@@ -239,9 +239,13 @@ const WhyChooseUsSection: React.FC = () => {
       <VideoDialog
         isOpen={isVideoOpen}
         onClose={() => setIsVideoOpen(false)}
-        videoSrc="/videos/dhs-intro-video.mp4"
-        title="Our Professional Painting Process"
-        poster="/videos/dhs-intro-thumb.png"
+        videos={[{
+          id: '1',
+          src: '/videos/dhs-intro-video.mp4',
+          title: 'Our Professional Painting Process',
+          poster: '/videos/dhs-intro-thumb.png'
+        }]}
+        currentVideoIndex={0}
       />
     </section>
   );
