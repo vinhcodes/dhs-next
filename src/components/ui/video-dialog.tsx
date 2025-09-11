@@ -1,12 +1,23 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react';
+import { X, Play, Pause, Volume2, VolumeX, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
+
+interface Video {
+  id: string;
+  src: string;
+  title?: string;
+  poster?: string;
+}
 
 interface VideoDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  videoSrc: string;
+  videos: Video[];
+  currentVideoIndex: number;
+  onVideoChange?: (index: number) => void;
+  // Legacy props for backward compatibility
+  videoSrc?: string;
   title?: string;
   poster?: string;
 }
@@ -14,6 +25,10 @@ interface VideoDialogProps {
 const VideoDialog: React.FC<VideoDialogProps> = ({
   isOpen,
   onClose,
+  videos,
+  currentVideoIndex,
+  onVideoChange,
+  // Legacy props for backward compatibility
   videoSrc,
   title,
   poster,
@@ -26,6 +41,11 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Support both new array format and legacy single video format
+  const currentVideos = videos || (videoSrc ? [{ id: '1', src: videoSrc, title, poster }] : []);
+  const currentVideo = currentVideos[currentVideoIndex] || currentVideos[0];
+  const hasMultipleVideos = currentVideos.length > 1;
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
@@ -37,6 +57,14 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
       }
       if (e.key === 'm' || e.key === 'M') {
         toggleMute();
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPreviousVideo();
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNextVideo();
       }
     };
 
@@ -51,13 +79,20 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
     };
   }, [isOpen]);
 
+  // Reset video state when video changes
   useEffect(() => {
-    if (isOpen && videoRef.current) {
+    if (isOpen && videoRef.current && currentVideo) {
       videoRef.current.currentTime = 0;
       setCurrentTime(0);
       setIsPlaying(true);
-      videoRef.current.play();
-    } else if (!isOpen && videoRef.current) {
+      videoRef.current.play().catch(() => {
+        setIsPlaying(false);
+      });
+    }
+  }, [currentVideoIndex, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen && videoRef.current) {
       videoRef.current.pause();
       setIsPlaying(false);
     }
@@ -109,6 +144,20 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const goToNextVideo = () => {
+    if (hasMultipleVideos && onVideoChange) {
+      const nextIndex = (currentVideoIndex + 1) % currentVideos.length;
+      onVideoChange(nextIndex);
+    }
+  };
+
+  const goToPreviousVideo = () => {
+    if (hasMultipleVideos && onVideoChange) {
+      const prevIndex = (currentVideoIndex - 1 + currentVideos.length) % currentVideos.length;
+      onVideoChange(prevIndex);
+    }
+  };
+
   const handleMouseMove = () => {
     setShowControls(true);
     if (controlsTimeoutRef.current) {
@@ -127,7 +176,7 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !currentVideo) return null;
 
   return (
     <div
@@ -148,27 +197,55 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
           <X size={24} />
         </button>
 
-        {/* Title */}
-        {title && (
-          <div className="absolute -top-16 left-0 text-white text-lg font-semibold">
-            {title}
-          </div>
-        )}
+        {/* Title and Video Counter */}
+        <div className="absolute -top-16 left-0 right-0 flex justify-between items-center">
+          {currentVideo.title && (
+            <div className="text-white text-lg font-semibold">
+              {currentVideo.title}
+            </div>
+          )}
+          {hasMultipleVideos && (
+            <div className="text-white/80 text-sm">
+              {currentVideoIndex + 1} of {currentVideos.length}
+            </div>
+          )}
+        </div>
 
         {/* Video Container */}
-        <div className="relative bg-black rounded-lg overflow-hidden shadow-2xl">
+        <div className="relative bg-black rounded-lg overflow-hidden shadow-2xl group">
           <video
             ref={videoRef}
             className="w-full h-auto max-h-[80vh] object-contain cursor-pointer"
-            poster={poster}
+            poster={currentVideo.poster}
             onClick={togglePlayPause}
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={() => setIsPlaying(false)}
           >
-            <source src={videoSrc} type="video/mp4" />
+            <source src={currentVideo.src} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          {/* Navigation Arrows */}
+          {hasMultipleVideos && (
+            <>
+              <button
+                onClick={goToPreviousVideo}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all duration-200 opacity-0 group-hover:opacity-100"
+                title="Previous video (←)"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              
+              <button
+                onClick={goToNextVideo}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all duration-200 opacity-0 group-hover:opacity-100"
+                title="Next video (→)"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
 
           {/* Video Controls */}
           <div

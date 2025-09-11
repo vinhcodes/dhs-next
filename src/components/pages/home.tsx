@@ -7,6 +7,7 @@ import WhyChooseUsSection from "@/components/choose-us";
 import EstimateForm from "@/components/form";
 import GallerySection from "@/components/gallery";
 import ReviewSection from "@/components/review";
+import VideoSection from "@/components/video-section";
 import CarouselSlider from "@/components/ui/carousel";
 import { GalleryCarousel } from "@/components/ui/gallery-carousel";
 import InfiniteLinkCarousel from "@/components/ui/infinite-carousel";
@@ -76,6 +77,9 @@ export default function HomePage() {
       <section className="bg-gray-50 pt-16 lg:pt-24">
         <AboutSection />
       </section>
+
+      {/* Video Section */}
+      <VideoSection />
 
       {/* Infinite Carousel */}
       <section className="bg-white">
