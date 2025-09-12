@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Play, Pause, Volume2, VolumeX, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react';
 
 interface Video {
   id: string;
@@ -57,14 +57,6 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
       }
       if (e.key === 'm' || e.key === 'M') {
         toggleMute();
-      }
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        goToPreviousVideo();
-      }
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        goToNextVideo();
       }
     };
 
@@ -144,19 +136,6 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const goToNextVideo = () => {
-    if (hasMultipleVideos && onVideoChange) {
-      const nextIndex = (currentVideoIndex + 1) % currentVideos.length;
-      onVideoChange(nextIndex);
-    }
-  };
-
-  const goToPreviousVideo = () => {
-    if (hasMultipleVideos && onVideoChange) {
-      const prevIndex = (currentVideoIndex - 1 + currentVideos.length) % currentVideos.length;
-      onVideoChange(prevIndex);
-    }
-  };
 
   const handleMouseMove = () => {
     setShowControls(true);
@@ -226,26 +205,6 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
             Your browser does not support the video tag.
           </video>
 
-          {/* Navigation Arrows */}
-          {hasMultipleVideos && (
-            <>
-              <button
-                onClick={goToPreviousVideo}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all duration-200 opacity-0 group-hover:opacity-100"
-                title="Previous video (←)"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              
-              <button
-                onClick={goToNextVideo}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 transition-all duration-200 opacity-0 group-hover:opacity-100"
-                title="Next video (→)"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </>
-          )}
 
           {/* Video Controls */}
           <div

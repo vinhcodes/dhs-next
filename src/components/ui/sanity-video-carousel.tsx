@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Play, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
-import { OptimizedVideo, getOptimalVideoSource, formatDuration } from '@/lib/video-utils';
+import { OptimizedVideo, formatDuration } from '@/lib/video-utils';
 
 interface SanityVideoCarouselProps {
   videos: OptimizedVideo[];
@@ -20,42 +20,10 @@ const SanityVideoCarousel: React.FC<SanityVideoCarouselProps> = ({
   showCategory = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [connectionQuality, setConnectionQuality] = useState<'slow' | 'medium' | 'fast'>('medium');
   const [isLoading, setIsLoading] = useState(true);
 
-  // Detect connection quality
   useEffect(() => {
-    const detectConnection = () => {
-      if (typeof window !== 'undefined' && 'connection' in navigator) {
-        const connection = (navigator as { connection?: { effectiveType: string; downlink?: number } }).connection;
-        if (connection) {
-          const { effectiveType, downlink } = connection;
-          
-          if (downlink) {
-            if (downlink < 1) setConnectionQuality('slow');
-            else if (downlink < 5) setConnectionQuality('medium');
-            else setConnectionQuality('fast');
-          } else {
-            switch (effectiveType) {
-              case 'slow-2g':
-              case '2g':
-                setConnectionQuality('slow');
-                break;
-              case '3g':
-                setConnectionQuality('medium');
-                break;
-              case '4g':
-              default:
-                setConnectionQuality('fast');
-                break;
-            }
-          }
-        }
-      }
-      setIsLoading(false);
-    };
-
-    detectConnection();
+    setIsLoading(false);
   }, []);
 
   const nextVideo = () => {
@@ -70,14 +38,6 @@ const SanityVideoCarousel: React.FC<SanityVideoCarouselProps> = ({
     setCurrentIndex(index);
   };
 
-  const getQualityBadgeColor = () => {
-    switch (connectionQuality) {
-      case 'slow': return 'bg-red-500/80';
-      case 'medium': return 'bg-yellow-500/80';
-      case 'fast': return 'bg-green-500/80';
-      default: return 'bg-gray-500/80';
-    }
-  };
 
   if (isLoading) {
     return (
@@ -123,12 +83,6 @@ const SanityVideoCarousel: React.FC<SanityVideoCarouselProps> = ({
             
             {/* Video Info Overlay */}
             <div className="absolute top-2 left-2 flex gap-2">
-              {/* Connection Quality Indicator */}
-              <div className={`${getQualityBadgeColor()} text-white text-xs px-2 py-1 rounded flex items-center gap-1`}>
-                <div className={`w-2 h-2 rounded-full ${connectionQuality === 'fast' ? 'bg-white' : connectionQuality === 'medium' ? 'bg-white/80' : 'bg-white/60'}`} />
-                {connectionQuality}
-              </div>
-              
               {/* Duration Badge */}
               {showDuration && currentVideo.duration && (
                 <div className="bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
@@ -245,9 +199,6 @@ const SanityVideoCarousel: React.FC<SanityVideoCarouselProps> = ({
           </div>
         )}
         
-        <div className="text-xs text-gray-400 ml-auto">
-          Optimized for {connectionQuality} connection
-        </div>
       </div>
     </div>
   );
