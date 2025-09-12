@@ -336,8 +336,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Handle both JSON and FormData
-    let body: any
-    let photoAttachments: Array<{
+    let body: Record<string, unknown>
+    const photoAttachments: Array<{
       filename: string;
       content: Buffer;
       contentType: string;

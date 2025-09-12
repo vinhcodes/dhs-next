@@ -129,7 +129,7 @@ export function getOptimalVideoSource(
   }
 
   // Check Navigator connection API
-  const connection = (navigator as any).connection
+  const connection = (navigator as { connection?: { effectiveType: string; downlink?: number } }).connection
   if (connection) {
     const { effectiveType, downlink } = connection
     

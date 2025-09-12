@@ -54,7 +54,7 @@ const VideoSection: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
-  const handleVideoClick = (_video: any, index: number) => {
+  const handleVideoClick = (_video: { id: string; src: string; title?: string; poster?: string }, index: number) => {
     setCurrentVideoIndex(index);
     setIsDialogOpen(true);
   };

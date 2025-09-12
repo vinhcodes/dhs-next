@@ -35,7 +35,7 @@ const OptimizedVideoCarousel: React.FC<OptimizedVideoCarouselProps> = ({
   useEffect(() => {
     const detectConnection = () => {
       if ('connection' in navigator) {
-        const connection = (navigator as any).connection;
+        const connection = (navigator as { connection?: { effectiveType: string; downlink?: number } }).connection;
         if (connection) {
           if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
             setConnectionQuality('slow');

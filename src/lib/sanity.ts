@@ -10,12 +10,12 @@ export const client = createClient({
 
 const builder = imageUrlBuilder(client)
 
-export function urlFor(source: any) {
+export function urlFor(source: { _ref: string; [key: string]: unknown } | string) {
   return builder.image(source)
 }
 
 // Video URL helper with optimization
-export function getVideoUrl(asset: any, options: {
+export function getVideoUrl(asset: { _ref: string; [key: string]: unknown }, options: {
   quality?: 'low' | 'medium' | 'high' | 'auto'
   format?: 'mp4' | 'webm'
   width?: number
@@ -49,7 +49,7 @@ export function getVideoUrl(asset: any, options: {
 }
 
 // Get optimized video URLs for different qualities
-export function getOptimizedVideoUrls(asset: any) {
+export function getOptimizedVideoUrls(asset: { _ref: string; [key: string]: unknown }) {
   return {
     low: getVideoUrl(asset, { quality: 'low', width: 640 }),
     medium: getVideoUrl(asset, { quality: 'medium', width: 1280 }),
@@ -59,7 +59,7 @@ export function getOptimizedVideoUrls(asset: any) {
 }
 
 // Generate video poster/thumbnail from Sanity
-export function getVideoPoster(asset: any, options: {
+export function getVideoPoster(asset: { _ref: string; [key: string]: unknown }, options: {
   time?: number // Time in seconds
   width?: number
   height?: number

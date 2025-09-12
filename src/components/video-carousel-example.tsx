@@ -33,7 +33,7 @@ const VideoCarouselExample: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
-  const handleVideoClick = (video: any, index: number) => {
+  const handleVideoClick = (video: { id: string; src: string; title?: string; poster?: string }, index: number) => {
     setCurrentVideoIndex(index);
     setIsDialogOpen(true);
   };

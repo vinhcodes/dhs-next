@@ -27,7 +27,7 @@ const SanityVideoCarousel: React.FC<SanityVideoCarouselProps> = ({
   useEffect(() => {
     const detectConnection = () => {
       if (typeof window !== 'undefined' && 'connection' in navigator) {
-        const connection = (navigator as any).connection;
+        const connection = (navigator as { connection?: { effectiveType: string; downlink?: number } }).connection;
         if (connection) {
           const { effectiveType, downlink } = connection;
           
