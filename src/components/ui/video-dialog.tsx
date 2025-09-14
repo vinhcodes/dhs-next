@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react';
+import { X, Play, Pause, Volume2, VolumeX, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Video {
   id: string;
@@ -58,6 +58,14 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
       if (e.key === 'm' || e.key === 'M') {
         toggleMute();
       }
+      if (e.key === 'ArrowLeft' && hasMultipleVideos && onVideoChange) {
+        const prevIndex = (currentVideoIndex - 1 + currentVideos.length) % currentVideos.length;
+        onVideoChange(prevIndex);
+      }
+      if (e.key === 'ArrowRight' && hasMultipleVideos && onVideoChange) {
+        const nextIndex = (currentVideoIndex + 1) % currentVideos.length;
+        onVideoChange(nextIndex);
+      }
     };
 
     if (isOpen) {
@@ -69,19 +77,29 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [isOpen, onClose, hasMultipleVideos, onVideoChange, currentVideoIndex, currentVideos.length]);
 
   // Reset video state when video changes
   useEffect(() => {
     if (isOpen && videoRef.current && currentVideo) {
+      // Force reload the video element
+      videoRef.current.load();
       videoRef.current.currentTime = 0;
       setCurrentTime(0);
       setIsPlaying(true);
-      videoRef.current.play().catch(() => {
-        setIsPlaying(false);
-      });
+      
+      // Wait for the video to be ready before playing
+      const playVideo = () => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {
+            setIsPlaying(false);
+          });
+        }
+      };
+      
+      videoRef.current.addEventListener('loadeddata', playVideo, { once: true });
     }
-  }, [currentVideoIndex, isOpen]);
+  }, [currentVideoIndex, isOpen, currentVideo]);
 
   useEffect(() => {
     if (!isOpen && videoRef.current) {
@@ -193,6 +211,7 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
         {/* Video Container */}
         <div className="relative bg-black rounded-lg overflow-hidden shadow-2xl group">
           <video
+            key={currentVideo.id}
             ref={videoRef}
             className="w-full h-auto max-h-[80vh] object-contain cursor-pointer"
             poster={currentVideo.poster}
@@ -200,10 +219,40 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={() => setIsPlaying(false)}
+            preload="metadata"
           >
             <source src={currentVideo.src} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          {/* Video Navigation Arrows */}
+          {hasMultipleVideos && onVideoChange && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const prevIndex = (currentVideoIndex - 1 + currentVideos.length) % currentVideos.length;
+                  onVideoChange(prevIndex);
+                }}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors opacity-0 group-hover:opacity-100"
+                title="Previous video (←)"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const nextIndex = (currentVideoIndex + 1) % currentVideos.length;
+                  onVideoChange(nextIndex);
+                }}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors opacity-0 group-hover:opacity-100"
+                title="Next video (→)"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
 
 
           {/* Video Controls */}
