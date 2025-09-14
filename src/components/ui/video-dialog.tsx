@@ -38,6 +38,8 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -82,22 +84,70 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
   // Reset video state when video changes
   useEffect(() => {
     if (isOpen && videoRef.current && currentVideo) {
+      setIsLoading(true);
+      setLoadProgress(0);
+      setIsPlaying(false);
+      
       // Force reload the video element
       videoRef.current.load();
       videoRef.current.currentTime = 0;
       setCurrentTime(0);
-      setIsPlaying(true);
       
-      // Wait for the video to be ready before playing
-      const playVideo = () => {
-        if (videoRef.current) {
-          videoRef.current.play().catch(() => {
-            setIsPlaying(false);
-          });
+      // Add loading event listeners for better UX with large files
+      const video = videoRef.current;
+      
+      const handleLoadStart = () => {
+        setIsLoading(true);
+        setLoadProgress(0);
+      };
+      
+      const handleProgress = () => {
+        if (video.buffered.length > 0) {
+          const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+          const duration = video.duration;
+          if (duration > 0) {
+            setLoadProgress((bufferedEnd / duration) * 100);
+          }
         }
       };
       
-      videoRef.current.addEventListener('loadeddata', playVideo, { once: true });
+      const handleCanPlayThrough = () => {
+        setIsLoading(false);
+        setLoadProgress(100);
+      };
+      
+      const handleLoadedData = () => {
+        setIsLoading(false);
+        // Auto-play for smaller files or when sufficient buffer is available
+        if (video.buffered.length > 0) {
+          const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+          if (bufferedEnd > 5 || video.duration < 30) { // 5 seconds buffered or short video
+            setIsPlaying(true);
+            video.play().catch(() => setIsPlaying(false));
+          }
+        }
+      };
+      
+      const handleWaiting = () => setIsLoading(true);
+      const handleCanPlay = () => setIsLoading(false);
+      
+      // Add event listeners
+      video.addEventListener('loadstart', handleLoadStart);
+      video.addEventListener('progress', handleProgress);
+      video.addEventListener('canplaythrough', handleCanPlayThrough);
+      video.addEventListener('loadeddata', handleLoadedData);
+      video.addEventListener('waiting', handleWaiting);
+      video.addEventListener('canplay', handleCanPlay);
+      
+      // Cleanup function
+      return () => {
+        video.removeEventListener('loadstart', handleLoadStart);
+        video.removeEventListener('progress', handleProgress);
+        video.removeEventListener('canplaythrough', handleCanPlayThrough);
+        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('waiting', handleWaiting);
+        video.removeEventListener('canplay', handleCanPlay);
+      };
     }
   }, [currentVideoIndex, isOpen, currentVideo]);
 
@@ -219,11 +269,42 @@ const VideoDialog: React.FC<VideoDialogProps> = ({
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={() => setIsPlaying(false)}
-            preload="metadata"
+            preload="auto"
+            playsInline
           >
             <source src={currentVideo.src} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+
+          {/* Loading Indicator for Large Files */}
+          {isLoading && (
+            <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center">
+              <div className="bg-white/20 rounded-full p-4 mb-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+              </div>
+              <div className="text-white text-sm mb-2">Loading video...</div>
+              {loadProgress > 0 && (
+                <div className="w-48 bg-white/20 rounded-full h-2">
+                  <div
+                    className="bg-white h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${Math.min(loadProgress, 100)}%` }}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Play Button for Large Files */}
+          {!isLoading && !isPlaying && (
+            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <button
+                onClick={togglePlayPause}
+                className="bg-white/90 hover:bg-white rounded-full p-4 transition-colors"
+              >
+                <Play size={32} className="text-gray-900 ml-1" />
+              </button>
+            </div>
+          )}
 
           {/* Video Navigation Arrows */}
           {hasMultipleVideos && onVideoChange && (

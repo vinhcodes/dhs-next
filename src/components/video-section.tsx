@@ -5,49 +5,20 @@ import VideoCarousel from './ui/video-carousel';
 import VideoDialog from './ui/video-dialog';
 import TitleWithLine from './ui/title-with-line';
 
-// Your actual video files
+// Your actual video files - only including existing files for now
 const videos = [
   {
     id: '1',
     src: '/videos/dhs-intro-video.mp4',
     title: 'DHS Introduction Video',
     poster: '/videos/dhs-intro-thumb.png'
-  },
-  {
-    id: '2',
-    src: '/videos/video_02.MP4',
-    title: 'Exterior Painting Project'
-  },
-  {
-    id: '3',
-    src: '/videos/video_03.MP4',
-    title: 'Interior Transformation'
-  },
-  {
-    id: '4',
-    src: '/videos/video_04.MP4',
-    title: 'Cabinet Refinishing'
-  },
-  {
-    id: '5',
-    src: '/videos/video_05.MP4',
-    title: 'Pool Deck Painting'
-  },
-  {
-    id: '6',
-    src: '/videos/video 06.MP4',
-    title: 'Commercial Project'
-  },
-  {
-    id: '7',
-    src: '/videos/video_07.MP4',
-    title: 'Fence Staining Project'
-  },
-  {
-    id: '8',
-    src: '/videos/video_08.MP4',
-    title: 'Before & After Showcase'
   }
+  // Add more videos here as you upload them to /public/videos/
+  // {
+  //   id: '2',
+  //   src: '/videos/video_02.MP4',
+  //   title: 'Exterior Painting Project'
+  // },
 ];
 
 const VideoSection: React.FC = () => {
