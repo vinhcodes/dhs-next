@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, Phone, Users, Award, Paintbrush, Shield, Play } from 'lucide-react';
 import Link from 'next/link';
 import VideoDialog from '@/components/ui/video-dialog';
+import { COMPANY } from '@/config/company';
 
 interface Feature {
   id: number;
@@ -225,9 +226,9 @@ const WhyChooseUsSection: React.FC = () => {
               </button>
 
               {/* Phone Button */}
-              <Link href='tel:7276145087' className="group bg-white hover:bg-gray-50 text-gray-800 font-medium px-8 py-3 rounded-xl border border-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg flex-1 sm:flex-none">
+              <Link href={COMPANY.phoneTel} className="group bg-white hover:bg-gray-50 text-gray-800 font-medium px-8 py-3 rounded-xl border border-gray-200 hover:border-gray-300 transition-all duration-200 flex items-center justify-center gap-3 hover:shadow-lg flex-1 sm:flex-none">
                 <Phone className="w-4 h-4 text-gray-600" />
-                <span>(727) 614-5087</span>
+                <span>{COMPANY.phoneDisplay}</span>
               </Link>
             </div>
           </div>

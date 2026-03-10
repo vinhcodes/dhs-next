@@ -5,15 +5,16 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, CheckCircle, Star, Users } f
 import EstimateForm from '@/components/form';
 import { Button } from '@/components/ui/button';
 import PhoneCallButton from '@/components/ui/phonecall-btn';
+import { COMPANY } from '@/config/company';
 
 const ContactTemplate: React.FC = () => {
   const contactInfo = [
     {
       icon: <Phone className="w-6 h-6 text-white" />,
       title: "Call Us",
-      content: "(727) 614-5087",
+      content: COMPANY.phoneDisplay,
       description: "Available 7 days a week",
-      href: "tel:7276145087"
+      href: COMPANY.phoneTel
     },
     {
       icon: <Mail className="w-6 h-6 text-white" />,

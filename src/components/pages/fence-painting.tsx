@@ -10,6 +10,7 @@ import ProcessCard from "@/components/ui/process-card";
 import React from "react";
 import FAQ from "@/components/faq";
 import CarouselSlider from "@/components/ui/carousel";
+import { COMPANY } from "@/config/company";
 
 const heroSlides = [
   {
@@ -86,10 +87,10 @@ const FencePaintingTemplate = () => {
             We provide detailed estimates based on fence measurements, material
             type, and preparation requirements. Call{" "}
             <a
-              href="tel:7276145087"
+              href={COMPANY.phoneTel}
               className="text-blue-600 font-medium hover:text-blue-700 transition-colors"
             >
-              (727) 614-5087
+              {COMPANY.phoneDisplay}
             </a>{" "}
             for your free fence assessment and protection estimate!
           </p>

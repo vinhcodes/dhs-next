@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Instagram, Phone, MapPin, Mail } from 'lucide-react';
 import Image from 'next/image';
+import { COMPANY } from '@/config/company';
 
 const Footer: React.FC = () => {
   return (
@@ -91,10 +92,10 @@ const Footer: React.FC = () => {
                   <Phone className="w-4 h-4 text-white" />
                 </div>
                 <a 
-                  href="tel:7276145087"
+                  href={COMPANY.phoneTel}
                   className="text-gray-300 hover:text-white transition-colors duration-200 font-medium"
                 >
-                  (727) 614-5087
+                  {COMPANY.phoneDisplay}
                 </a>
               </div>
 
@@ -123,7 +124,7 @@ const Footer: React.FC = () => {
             {/* CTA Button */}
             <div className="mt-8">
               <a
-                href="tel:7276145087"
+                href={COMPANY.phoneTel}
                 className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
               >
                 <Phone className="w-4 h-4 mr-2" />

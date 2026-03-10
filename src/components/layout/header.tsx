@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigation } from "../ui/navigation";
 import Image from "next/image";
+import { COMPANY } from "@/config/company";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -32,7 +33,7 @@ const Header = () => {
         }}
         navItems={navItems}
         phone={
-          {number: '7276145087'}
+          {number: COMPANY.phoneNumber}
         }
       />
     </div>

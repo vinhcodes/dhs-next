@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Plus, Minus } from "lucide-react";
+import { COMPANY } from "@/config/company";
 
 export interface FAQItem {
   id: string;
@@ -95,10 +96,10 @@ export default function FAQ({
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="tel:7276145087"
+            href={COMPANY.phoneTel}
             className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Call (727) 614-5087
+            Call {COMPANY.phoneDisplay}
           </a>
           <button className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
             Get Estimate

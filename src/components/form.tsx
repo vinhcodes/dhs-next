@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Send, User, Mail, Phone, Paintbrush, AlertCircle, CheckCircle2, MapPin, Upload, X, Square, XCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import GooglePlacesAutocomplete from '@/components/ui/google-places-autocomplete';
+import { COMPANY } from '@/config/company';
 
 // Zod-like validation (simplified for artifact environment)
 const validateForm = (data: FormData) => {
@@ -324,19 +325,19 @@ const EstimateForm: React.FC = () => {
             <p className={`text-sm mb-6 leading-relaxed ${
               isSuccess ? 'text-green-700' : 'text-red-700'
             }`}>
-              {isSuccess ? (
-                <>
-                  Thank you for your estimate request! We've received your information and will contact you within 24 hours to schedule your consultation.
-                  <br /><br />
-                  <strong>Check your email</strong> for a confirmation message.
-                </>
-              ) : (
-                <>
-                  We're sorry, but there was an error submitting your request. Please try again or contact us directly.
-                  <br /><br />
-                  <strong>Call us at (727) 614-5087</strong> for immediate assistance.
-                </>
-              )}
+                  {isSuccess ? (
+                    <>
+                      Thank you for your estimate request! We've received your information and will contact you within 24 hours to schedule your consultation.
+                      <br /><br />
+                      <strong>Check your email</strong> for a confirmation message.
+                    </>
+                  ) : (
+                    <>
+                      We're sorry, but there was an error submitting your request. Please try again or contact us directly.
+                      <br /><br />
+                      <strong>Call us at {COMPANY.phoneDisplay}</strong> for immediate assistance.
+                    </>
+                  )}
             </p>
 
             {/* Action Button */}
@@ -354,10 +355,10 @@ const EstimateForm: React.FC = () => {
             {/* Additional Action for Error */}
             {!isSuccess && (
               <a
-                href="tel:7276145087"
+                href={COMPANY.phoneTel}
                 className="block mt-3 py-2 px-4 text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
               >
-                Or Call Us Now: (727) 614-5087
+                Or Call Us Now: {COMPANY.phoneDisplay}
               </a>
             )}
           </div>
@@ -692,11 +693,11 @@ const EstimateForm: React.FC = () => {
         <div className="mt-8 text-center">
           <p className="text-gray-600 mb-4">Prefer to talk? Give us a call!</p>
           <a
-            href="tel:7276145087"
+            href={COMPANY.phoneTel}
             className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-50 text-gray-900 font-semibold rounded-xl border border-gray-200 transition-colors duration-200"
           >
             <Phone className="w-4 h-4" />
-            (727) 614-5087
+            {COMPANY.phoneDisplay}
           </a>
         </div>
       </div>
